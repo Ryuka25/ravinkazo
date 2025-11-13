@@ -1,5 +1,4 @@
 <script>
-	import FaqSection from '$lib/components/sections/FaqSection/FaqSection.svelte';
 	import FooterSection from '$lib/components/sections/FooterSection/FooterSection.svelte';
 	import HeaderSection from '$lib/components/sections/HeaderSection/HeaderSection.svelte';
 	import PlanterAujourdhuiEtapesSection from '$lib/components/sections/PlanterAujourdhuiEtapesSection/PlanterAujourdhuiEtapesSection.svelte';
@@ -10,6 +9,6 @@
 	<HeaderSection />
 	<PlanterAujourdhuiHeroSection />
 	<PlanterAujourdhuiEtapesSection />
-	<FaqSection />
+	<div class="my-24"></div>
 	<FooterSection />
 </div>
