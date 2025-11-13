@@ -7,4 +7,4 @@
 	let { class: className, children }: SectionProps = $props();
 </script>
 
-<section class={cn('', className)}>{@render children?.()}</section>
+<section class={cn('px-4', className)}>{@render children?.()}</section>

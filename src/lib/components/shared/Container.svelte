@@ -7,4 +7,4 @@
 	let { class: className, children }: ContainerProps = $props();
 </script>
 
-<div class={cn('mx-auto w-full max-w-5xl', className)}>{@render children?.()}</div>
+<div class={cn('mx-auto w-full max-w-7xl', className)}>{@render children?.()}</div>
