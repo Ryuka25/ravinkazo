@@ -16,7 +16,7 @@
 			<div class="flex gap-16 pt-16">
 				<img
 					class="-ml-36 aspect-square w-2/3 rounded-lg border-4 object-cover shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
-					src="/assets/composition-6.png"
+					src="/assets/composition-19.png"
 					alt=""
 				/>
 				<div class="flex w-full flex-col gap-8">
