@@ -11,9 +11,9 @@
 	<Container class="item-end flex items-center justify-between py-4">
 		<div class="font-heading text-3xl font-bold md:text-6xl">GreenDay</div>
 		<div class="hidden gap-4 md:flex">
-			<AppButton variant="secondary" class="capitalize">accueil</AppButton>
-			<AppButton variant="secondary" class="capitalize">explorer</AppButton>
-			<AppButton class="capitalize">participer</AppButton>
+			<AppButton variant="secondary" class="capitalize" href="/">accueil</AppButton>
+			<AppButton variant="secondary" class="capitalize" href="/explorer">explorer</AppButton>
+			<AppButton class="capitalize" href="/participer">participer</AppButton>
 		</div>
 		<div class="block md:hidden">
 			<Sheet.Root>
@@ -29,9 +29,9 @@
 						</Sheet.Title>
 					</Sheet.Header>
 					<div class="grid gap-4">
-						<AppButton variant="secondary" class="capitalize">accueil</AppButton>
-						<AppButton variant="secondary" class="capitalize">explorer</AppButton>
-						<AppButton class="capitalize">participer</AppButton>
+						<AppButton variant="secondary" class="capitalize" href="/">accueil</AppButton>
+						<AppButton variant="secondary" class="capitalize" href="/explorer">explorer</AppButton>
+						<AppButton class="capitalize" href="/participer">participer</AppButton>
 					</div>
 				</Sheet.Content>
 			</Sheet.Root>
