@@ -59,10 +59,6 @@ export const initializeMap = (ref: HTMLElement) => {
         })
     );
 
-    map.instance.addControl(
-        new maplibregl.GlobeControl()
-    );
-
     map.instance.on('load', () => {
         map.instance?.setSky({
             "sky-color": "#7db9e8",

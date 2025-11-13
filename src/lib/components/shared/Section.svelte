@@ -1,8 +1,10 @@
+<script module>
+	export type SectionProps = HTMLAttributes<HTMLDivElement>;
+</script>
+
 <script lang="ts">
 	import { cn } from '$lib/utils';
 	import type { HTMLAttributes } from 'svelte/elements';
-
-	type SectionProps = HTMLAttributes<HTMLDivElement>;
 
 	let { class: className, children }: SectionProps = $props();
 </script>

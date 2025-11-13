@@ -1,13 +1,17 @@
-<script>
+<script lang="ts">
 	import AppButton from '$lib/components/shared/AppButton.svelte';
 	import Container from '$lib/components/shared/Container.svelte';
+	import type { SectionProps } from '$lib/components/shared/Section.svelte';
 	import Section from '$lib/components/shared/Section.svelte';
 	import * as Sheet from '$lib/components/ui/sheet';
+	import { cn } from '$lib/utils';
 
 	import { Hamburger } from '@lucide/svelte';
+
+	let { class: className }: SectionProps = $props();
 </script>
 
-<Section>
+<Section class={cn(className)}>
 	<Container>
 		<div class="item-end flex items-center justify-between py-4">
 			<a class="font-heading text-3xl font-bold md:text-6xl" href="/">GreenDay</a>
