@@ -7,38 +7,42 @@
 	import { Hamburger } from '@lucide/svelte';
 </script>
 
-<Section class="px-4">
-	<Container class="item-end flex items-center justify-between py-4">
-		<a class="font-heading text-3xl font-bold md:text-6xl" href="/">GreenDay</a>
-		<div class="hidden gap-4 md:flex">
-			<AppButton variant="secondary" class="capitalize" href="/">accueil</AppButton>
-			<AppButton variant="secondary" class="capitalize" href="/explorer-demain">
-				explorer demain
-			</AppButton>
-			<AppButton class="capitalize" href="/planter-aujourdhui">planter aujourd'hui</AppButton>
-		</div>
-		<div class="block md:hidden">
-			<Sheet.Root>
-				<Sheet.Trigger>
-					<AppButton variant="secondary" size="icon">
-						<Hamburger class="size-6" />
-					</AppButton>
-				</Sheet.Trigger>
-				<Sheet.Content class="p-4">
-					<Sheet.Header>
-						<Sheet.Title>
-							<div class="font-heading text-3xl font-bold md:text-6xl">GreenDay</div>
-						</Sheet.Title>
-					</Sheet.Header>
-					<div class="grid gap-4">
-						<AppButton variant="secondary" class="capitalize" href="/">accueil</AppButton>
-						<AppButton variant="secondary" class="capitalize" href="/explorer-demain">
-							explorer demain
+<Section>
+	<Container>
+		<div class="item-end flex items-center justify-between py-4">
+			<a class="font-heading text-3xl font-bold md:text-6xl" href="/">GreenDay</a>
+			<div class="hidden gap-4 md:flex">
+				<AppButton variant="secondary" class="capitalize" href="/">accueil</AppButton>
+				<AppButton variant="secondary" class="capitalize" href="/explorer-demain">
+					explorer demain
+				</AppButton>
+				<AppButton class="capitalize" href="/planter-aujourdhui">planter aujourd'hui</AppButton>
+			</div>
+			<div class="block md:hidden">
+				<Sheet.Root>
+					<Sheet.Trigger>
+						<AppButton variant="secondary" size="icon">
+							<Hamburger class="size-6" />
 						</AppButton>
-						<AppButton class="capitalize" href="/planter-aujourdhui">planter aujourd'hui</AppButton>
-					</div>
-				</Sheet.Content>
-			</Sheet.Root>
+					</Sheet.Trigger>
+					<Sheet.Content class="p-4">
+						<Sheet.Header>
+							<Sheet.Title>
+								<div class="font-heading text-3xl font-bold md:text-6xl">GreenDay</div>
+							</Sheet.Title>
+						</Sheet.Header>
+						<div class="grid gap-4">
+							<AppButton variant="secondary" class="capitalize" href="/">accueil</AppButton>
+							<AppButton variant="secondary" class="capitalize" href="/explorer-demain">
+								explorer demain
+							</AppButton>
+							<AppButton class="capitalize" href="/planter-aujourdhui"
+								>planter aujourd'hui</AppButton
+							>
+						</div>
+					</Sheet.Content>
+				</Sheet.Root>
+			</div>
 		</div>
 	</Container>
 </Section>
