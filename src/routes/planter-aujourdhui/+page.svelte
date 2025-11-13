@@ -5,6 +5,6 @@
 
 <div>
 	<HeaderSection />
-	Accueil
+	planter aujourd'hui
 	<FooterSection />
 </div>

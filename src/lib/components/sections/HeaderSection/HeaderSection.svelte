@@ -9,11 +9,13 @@
 
 <Section class="px-4">
 	<Container class="item-end flex items-center justify-between py-4">
-		<div class="font-heading text-3xl font-bold md:text-6xl">GreenDay</div>
+		<a class="font-heading text-3xl font-bold md:text-6xl" href="/">GreenDay</a>
 		<div class="hidden gap-4 md:flex">
 			<AppButton variant="secondary" class="capitalize" href="/">accueil</AppButton>
-			<AppButton variant="secondary" class="capitalize" href="/explorer">explorer</AppButton>
-			<AppButton class="capitalize" href="/participer">participer</AppButton>
+			<AppButton variant="secondary" class="capitalize" href="/explorer-demain">
+				explorer demain
+			</AppButton>
+			<AppButton class="capitalize" href="/planter-aujourdhui">planter aujourd'hui</AppButton>
 		</div>
 		<div class="block md:hidden">
 			<Sheet.Root>
@@ -30,8 +32,10 @@
 					</Sheet.Header>
 					<div class="grid gap-4">
 						<AppButton variant="secondary" class="capitalize" href="/">accueil</AppButton>
-						<AppButton variant="secondary" class="capitalize" href="/explorer">explorer</AppButton>
-						<AppButton class="capitalize" href="/participer">participer</AppButton>
+						<AppButton variant="secondary" class="capitalize" href="/explorer-demain">
+							explorer demain
+						</AppButton>
+						<AppButton class="capitalize" href="/planter-aujourdhui">planter aujourd'hui</AppButton>
 					</div>
 				</Sheet.Content>
 			</Sheet.Root>

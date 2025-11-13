@@ -6,7 +6,7 @@
 <Section class="py-2 pt-8">
 	<Container class="flex items-center justify-center">
 		<div class="text-sm">
-			© Copyright 2025 par <span class="font-heading font-bold">GreenDay</span>
+			© Copyright 2025 par <a class="font-heading font-bold" href="/">GreenDay</a>
 		</div>
 	</Container>
 </Section>
