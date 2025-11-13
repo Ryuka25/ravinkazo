@@ -32,7 +32,7 @@
 	{...props}
 >
 	<h2 class="text-center font-heading font-bold">Boite à outils</h2>
-	<div class="grid grid-cols-[1fr_2fr] gap-1">
+	<div class="hidden grid-cols-[1fr_2fr] gap-1 md:grid">
 		<div class="col">Coord</div>
 		<div>: {coord[0].toFixed(5)}, {coord[1].toFixed(5)}</div>
 		<div>Zoom</div>
@@ -43,6 +43,8 @@
 		<div>: {bearing.toFixed(2)}</div>
 	</div>
 	<div class="flex justify-end">
-		<AppButton class="w-full md:w-auto" onclick={onResetClick}>Reinitialiser</AppButton>
+		<AppButton class="w-full md:w-auto" onclick={onResetClick}>
+			Rétourner au point de départ
+		</AppButton>
 	</div>
 </div>
