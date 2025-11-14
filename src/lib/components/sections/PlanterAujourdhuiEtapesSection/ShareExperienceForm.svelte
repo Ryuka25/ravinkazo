@@ -37,6 +37,8 @@
 
 	// Step 3 data
 	let coordinates = $state<{ lat: number; lon: number } | null>(null);
+	let isLoadingLocation = $state(false);
+	const defaultLocation = { lat: -18.8792, lon: 47.5079 }; // Antananarivo
 
 	// Step 4 data
 	let wantsToReceiveMoney = $state(false);
@@ -53,7 +55,8 @@
 		currentStep--;
 	};
 
-	const getGpsLocation = () => {
+	const getGpsLocation = (isRetry = false) => {
+		isLoadingLocation = true;
 		if (navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition(
 				(position) => {
@@ -61,13 +64,23 @@
 						lat: position.coords.latitude,
 						lon: position.coords.longitude
 					};
+					isLoadingLocation = false;
+					if (isRetry) toast.success('Position trouvée !');
 				},
 				() => {
-					toast.error("Impossible d'obtenir votre position.");
+					isLoadingLocation = false;
+					if (!coordinates) {
+						coordinates = defaultLocation;
+					}
+					toast.error("Impossible d'obtenir votre position. Vous pouvez la définir manuellement.");
 				}
 			);
 		} else {
-			toast.error("La géolocalisation n'est pas supportée par ce navigateur.");
+			isLoadingLocation = false;
+			if (!coordinates) {
+				coordinates = defaultLocation;
+			}
+			toast.error("La géolocalisation n'est pas supportée. Vous pouvez définir votre position manuellement.");
 		}
 	};
 
@@ -89,6 +102,13 @@
 	const cancelSubmission = () => {
 		showConfirmationDialog = false; // Close the dialog
 	};
+
+	// Reactive statement to trigger location on step entry
+	$effect(() => {
+		if (currentStep === 3 && !coordinates && !isLoadingLocation) {
+			getGpsLocation();
+		}
+	});
 </script>
 
 <div class={cn('flex gap-6 pt-16', className)} {...props}>
@@ -128,7 +148,7 @@
 			</div>
 		{/if}
 
-		<!-- Step 3: GPS and Money -->
+		<!-- Step 3: GPS -->
 		{#if currentStep === 3}
 			<div class="flex flex-col gap-4">
 				<Label>Localisation GPS</Label>
@@ -137,16 +157,20 @@
 					position en déplaçant le marqueur.
 				</p>
 
-				{#if !coordinates}
-					<Button onclick={getGpsLocation}>Obtenir ma position GPS</Button>
-				{/if}
-
-				{#if coordinates}
-					<LeafletMap
-						lat={coordinates.lat}
-						lon={coordinates.lon}
-						onLocationChange={onMapLocationChange}
-					/>
+				{#if isLoadingLocation && !coordinates}
+					<p class="text-center text-gray-500">Chargement de votre position...</p>
+				{:else if coordinates}
+					<div class="relative">
+						<LeafletMap
+							lat={coordinates.lat}
+							lon={coordinates.lon}
+							onLocationChange={onMapLocationChange}
+						/>
+						<Button
+							class="absolute bottom-2 right-2 z-[1000]"
+							onclick={() => getGpsLocation(true)}>Obtenir ma position</Button
+						>
+					</div>
 				{/if}
 			</div>
 			<div class="flex justify-between">
@@ -165,7 +189,8 @@
 				<FileInput bind:files={idPicture} id="id-picture" />
 				<div class="mt-2 rounded-lg border border-blue-200 bg-blue-50 p-3 text-sm text-blue-700">
 					<span class="font-bold">Conseil:</span> Assurez-vous que votre photo est claire et que toutes
-					les informations sont lisibles. Ceci est nécessaire pour valider votre identité pour la compensation.
+					les informations sont lisibles. Ceci est nécessaire pour valider votre identité pour la
+					compensation.
 				</div>
 			</div>
 			<div class="flex justify-between">

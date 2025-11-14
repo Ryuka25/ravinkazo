@@ -12,33 +12,34 @@
 	let { lat, lon, onLocationChange, ...props }: Props = $props();
 
 	let mapElement: HTMLElement;
+	let mapInstance = $state<L.Map | undefined>(undefined);
+	let markerInstance = $state<L.Marker | undefined>(undefined);
+	let Leaflet: typeof L | undefined; // Store the Leaflet object
 
 	onMount(() => {
-		let map: L.Map;
-
 		const initMap = async () => {
-			const L = (await import('leaflet')).default;
+			Leaflet = (await import('leaflet')).default; // Assign to component-scoped variable
 			await import('leaflet/dist/leaflet.css');
 
 			// clean up default icon path
-			delete (L.Icon.Default.prototype as any)._getIconUrl;
-			L.Icon.Default.mergeOptions({
+			delete (Leaflet.Icon.Default.prototype as any)._getIconUrl;
+			Leaflet.Icon.Default.mergeOptions({
 				iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
 				iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
 				shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png'
 			});
 
-			map = L.map(mapElement).setView([lat, lon], 13);
+			mapInstance = Leaflet.map(mapElement).setView([lat, lon], 13);
 
-			L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+			Leaflet.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 				attribution:
 					'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-			}).addTo(map);
+			}).addTo(mapInstance);
 
-			const marker = L.marker([lat, lon], { draggable: true }).addTo(map);
+			markerInstance = Leaflet.marker([lat, lon], { draggable: true }).addTo(mapInstance);
 
-			marker.on('dragend', () => {
-				const { lat, lng } = marker.getLatLng();
+			markerInstance.on('dragend', () => {
+				const { lat, lng } = markerInstance!.getLatLng();
 				onLocationChange(lat, lng);
 			});
 		};
@@ -46,10 +47,20 @@
 		initMap();
 
 		return () => {
-			if (map) {
-				map.remove();
+			if (mapInstance) {
+				mapInstance.remove();
 			}
 		};
+	});
+
+	// Effect to react to changes in lat/lon props
+	$effect(() => {
+		if (mapInstance && markerInstance && Leaflet) {
+			// Check if Leaflet is loaded
+			const newLatLng = Leaflet.latLng(lat, lon);
+			markerInstance.setLatLng(newLatLng);
+			mapInstance.flyTo(newLatLng, 13);
+		}
 	});
 </script>
 
