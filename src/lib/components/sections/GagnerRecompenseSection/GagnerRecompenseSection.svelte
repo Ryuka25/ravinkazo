@@ -21,10 +21,9 @@
 			</div>
 			<div class="flex w-1/2 flex-col gap-8">
 				<div class="font-heading text-4xl font-bold">Gagnez des Ravinkazo</div>
-				<p class="text-lg">
-					Plantez un arbre, récoltez des Ravinkazo ! Chaque Ravinkazo (Ra-vin-ka-zu) vous ouvre les
-					portes à réductions, cadeaux et avantages exclusifs auprès de nos partenaires. Votre geste
-					pour la planète devient une récompense qui grandit avec vous.
+				<p class="text-lg text-pretty">
+					Plantez un arbre, récoltez des Ravinkazo (Ra-vin-ka-zu) ! Chaque Ravinkazo vous ouvre les
+					portes à réductions, cadeaux et avantages exclusifs auprès de nos partenaires.
 				</p>
 			</div>
 		</div>

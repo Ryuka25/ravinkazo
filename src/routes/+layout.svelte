@@ -7,6 +7,11 @@
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
+	<style>
+		html {
+			scroll-behavior: smooth;
+		}
+	</style>
 </svelte:head>
 
 {@render children()}
