@@ -1,6 +1,7 @@
 <script lang="ts">
 	import FileInput from '$lib/components/shared/FileInput.svelte';
 	import LeafletMap from '$lib/components/shared/LeafletMap.svelte';
+	import { api } from '$lib/services/api';
 	import { Button } from '$lib/components/ui/button';
 	import {
 		Dialog,
@@ -14,12 +15,52 @@
 	import Label from '$lib/components/ui/label/label.svelte';
 	import Textarea from '$lib/components/ui/textarea/textarea.svelte';
 	import { cn } from '$lib/utils';
+	import { LoaderCircle } from '@lucide/svelte';
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { toast } from 'svelte-sonner';
 
-	const onShareExperience = () => {
-		// Here I would gather all the $state variables and submit them
-		toast.success('Votre expérience a été partagée avec succès !');
+	let isSubmitting = $state(false);
+
+	const resetForm = () => {
+		currentStep = 1;
+		firstname = '';
+		lastname = '';
+		message = '';
+		journeyPictures = [];
+		coordinates = null;
+		wantsToReceiveMoney = false;
+		idPicture = [];
+		isSubmitting = false;
+	};
+
+	const onShareExperience = async () => {
+		isSubmitting = true;
+		const experienceData = {
+			firstname: firstname,
+			lastname: lastname,
+			message: message,
+			journeyPictures: journeyPictures,
+			idPicture: idPicture.length > 0 ? idPicture[0] : undefined,
+			coordinates: coordinates! // The submit button is disabled if coordinates is null
+		};
+
+		// Show a loading toast
+		const promise = api.submitExperience(experienceData);
+
+		toast.promise(promise, {
+			loading: 'Envoi de votre expérience...',
+			success: (res) => {
+				resetForm();
+				return res.message;
+			},
+			error: (err: unknown) => {
+				isSubmitting = false;
+				if (err instanceof Error) {
+					return err.message;
+				}
+				return 'An error occurred while submitting your experience.';
+			}
+		});
 	};
 
 	type Props = HTMLAttributes<HTMLDivElement>;
@@ -131,7 +172,7 @@
 				<Label for="message">Votre message</Label>
 				<Textarea id="message" bind:value={message} />
 			</div>
-			<Button onclick={nextStep}>Suivant</Button>
+			<Button onclick={nextStep} disabled={!firstname || !lastname || !message}>Suivant</Button>
 		{/if}
 
 		<!-- Step 2: Journey Pictures -->
@@ -146,7 +187,7 @@
 			</div>
 			<div class="flex justify-between">
 				<Button onclick={prevStep}>Précédent</Button>
-				<Button onclick={nextStep}>Suivant</Button>
+				<Button onclick={nextStep} disabled={journeyPictures.length === 0}>Suivant</Button>
 			</div>
 		{/if}
 
@@ -156,7 +197,7 @@
 				<Label>Localisation GPS</Label>
 				<p class="text-sm text-gray-600">
 					Partagez votre position pour que nous puissions localiser l'arbre. Vous pouvez ajuster la
-					position en déplaçant le marqueur.
+	\t			position en déplaçant le marqueur.
 				</p>
 
 				{#if isLoadingLocation && !coordinates}
@@ -195,8 +236,13 @@
 			</div>
 			<div class="flex justify-between">
 				<Button onclick={prevStep}>Précédent</Button>
-				<Button onclick={handleSubmission}>
-					{idPicture.length > 0 ? 'Soumettre avec compensation' : 'Soumettre sans compensation'}
+				<Button onclick={handleSubmission} disabled={isSubmitting}>
+					{#if isSubmitting}
+						<LoaderCircle class="mr-2 animate-spin" />
+						Envoi en cours...
+					{:else}
+						{idPicture.length > 0 ? 'Soumettre avec compensation' : 'Soumettre sans compensation'}
+					{/if}
 				</Button>
 			</div>
 		{/if}
