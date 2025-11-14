@@ -1,5 +1,4 @@
 <script lang="ts">
-	import AppButton from '$lib/components/shared/AppButton.svelte';
 	import FileInput from '$lib/components/shared/FileInput.svelte';
 	import LeafletMap from '$lib/components/shared/LeafletMap.svelte';
 	import { Button } from '$lib/components/ui/button';
@@ -110,7 +109,7 @@
 				<Label for="message">Votre message</Label>
 				<Textarea id="message" bind:value={message} />
 			</div>
-			<AppButton onclick={nextStep}>Suivant</AppButton>
+			<Button onclick={nextStep}>Suivant</Button>
 		{/if}
 
 		<!-- Step 2: Journey Pictures -->
@@ -124,8 +123,8 @@
 				<FileInput bind:files={journeyPictures} multiple id="day-pictures" />
 			</div>
 			<div class="flex justify-between">
-				<AppButton onclick={prevStep}>Précédent</AppButton>
-				<AppButton onclick={nextStep}>Suivant</AppButton>
+				<Button onclick={prevStep}>Précédent</Button>
+				<Button onclick={nextStep}>Suivant</Button>
 			</div>
 		{/if}
 
@@ -139,7 +138,7 @@
 				</p>
 
 				{#if !coordinates}
-					<AppButton onclick={getGpsLocation}>Obtenir ma position GPS</AppButton>
+					<Button onclick={getGpsLocation}>Obtenir ma position GPS</Button>
 				{/if}
 
 				{#if coordinates}
@@ -151,8 +150,8 @@
 				{/if}
 			</div>
 			<div class="flex justify-between">
-				<AppButton onclick={prevStep}>Précédent</AppButton>
-				<AppButton onclick={nextStep} disabled={!coordinates}>Suivant</AppButton>
+				<Button onclick={prevStep}>Précédent</Button>
+				<Button onclick={nextStep} disabled={!coordinates}>Suivant</Button>
 			</div>
 		{/if}
 
@@ -165,16 +164,15 @@
 				</p>
 				<FileInput bind:files={idPicture} id="id-picture" />
 				<div class="mt-2 rounded-lg border border-blue-200 bg-blue-50 p-3 text-sm text-blue-700">
-					<span class="font-bold">Conseil:</span> Assurez-vous que votre photo est claire et que
-					toutes les informations sont lisibles. Ceci est nécessaire pour valider votre identité
-					pour la compensation.
+					<span class="font-bold">Conseil:</span> Assurez-vous que votre photo est claire et que toutes
+					les informations sont lisibles. Ceci est nécessaire pour valider votre identité pour la compensation.
 				</div>
 			</div>
 			<div class="flex justify-between">
-				<AppButton onclick={prevStep}>Précédent</AppButton>
-				<AppButton onclick={handleSubmission}>
+				<Button onclick={prevStep}>Précédent</Button>
+				<Button onclick={handleSubmission}>
 					{idPicture.length > 0 ? 'Soumettre avec compensation' : 'Soumettre sans compensation'}
-				</AppButton>
+				</Button>
 			</div>
 		{/if}
 	</div>
@@ -203,8 +201,8 @@
 					Vous êtes sur le point de soumettre votre expérience avec une demande de compensation.
 					Veuillez confirmer.
 				{:else}
-					Vous êtes sur le point de soumettre votre expérience sans demande de compensation. Veuillez
-					confirmer.
+					Vous êtes sur le point de soumettre votre expérience sans demande de compensation.
+					Veuillez confirmer.
 				{/if}
 			</DialogDescription>
 		</DialogHeader>

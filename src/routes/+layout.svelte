@@ -15,5 +15,15 @@
 	</style>
 </svelte:head>
 
-<Toaster />
+<Toaster
+	toastOptions={{
+		unstyled: true,
+		classes: {
+			toast:
+				'text-sm rounded-none border-2 border-black bg-white p-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex gap-2',
+			title: 'text-black',
+			description: 'text-gray-700'
+		}
+	}}
+/>
 {@render children()}

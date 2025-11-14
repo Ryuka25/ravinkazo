@@ -11,7 +11,7 @@
 <script lang="ts">
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { cn } from '$lib/utils';
-	import AppButton from '$lib/components/shared/AppButton.svelte';
+	import Button from '$lib/components/ui/button/button.svelte';
 
 	let {
 		class: className,
@@ -40,8 +40,6 @@
 		<div>: {bearing.toFixed(2)}</div>
 	</div>
 	<div class="flex justify-end">
-		<AppButton class="w-full md:w-auto" onclick={onResetClick}>
-			Rétourner au point de départ
-		</AppButton>
+		<Button class="w-full md:w-auto" onclick={onResetClick}>Rétourner au point de départ</Button>
 	</div>
 </div>

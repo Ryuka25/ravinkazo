@@ -1,7 +1,7 @@
 <script>
-	import AppButton from '$lib/components/shared/AppButton.svelte';
 	import Container from '$lib/components/shared/Container.svelte';
 	import Section from '$lib/components/shared/Section.svelte';
+	import Button from '$lib/components/ui/button/button.svelte';
 	import { MoveRight } from '@lucide/svelte';
 </script>
 
@@ -13,10 +13,10 @@
 					<img src="/assets/composition-19.png" alt="" />
 				</div>
 				<div class="absolute right-0 bottom-0 translate-x-1/2 translate-y-1/2">
-					<AppButton variant="secondary" href="/nos-partenaires">
+					<Button variant="secondary" href="/nos-partenaires">
 						Connaitre nos partenaires
 						<MoveRight class="size-6" />
-					</AppButton>
+					</Button>
 				</div>
 			</div>
 			<div class="flex w-1/2 flex-col gap-8">

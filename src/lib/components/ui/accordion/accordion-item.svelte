@@ -12,6 +12,9 @@
 <AccordionPrimitive.Item
 	bind:ref
 	data-slot="accordion-item"
-	class={cn('', className)}
+	class={cn(
+		'mb-4 rounded-none border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]',
+		className
+	)}
 	{...restProps}
 />
