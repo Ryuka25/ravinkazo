@@ -1,5 +1,4 @@
 <script>
-	import FooterSection from '$lib/components/sections/FooterSection/FooterSection.svelte';
 	import HeaderSection from '$lib/components/sections/HeaderSection/HeaderSection.svelte';
 	import MapContainer from '$lib/components/sections/MapSection/MapContainer.svelte';
 </script>
