@@ -11,7 +11,7 @@
 	<Container>
 		<div class="flex items-center justify-center">
 			<div class="text-sm">
-				© Copyright 2025 par <a class="font-heading font-bold" href="/">GreenDay</a>
+				© Copyright 2025 par <a class="font-heading font-bold" href="/">Ravinkazo</a>
 			</div>
 		</div>
 	</Container>
