@@ -11,12 +11,12 @@
 	<Container>
 		<div class="grid grid-cols-4 gap-8">
 			<PrimaryPartner class="col-span-4" />
-			<Partner logo="/logos/logo-3.jpg" />
-			<Partner logo="/logos/logo-1.avif" />
+			<Partner logo="/assets/logos/logo-3.jpg" />
+			<Partner logo="/assets/logos/logo-1.avif" />
 			<TertiaryPartner class="col-span-2" />
 			<SecondaryPartner class="col-span-2" />
-			<Partner logo="/logos/logo-2.avif" />
-			<Partner logo="/logos/logo-4.avif" />
+			<Partner logo="/assets/logos/logo-2.avif" />
+			<Partner logo="/assets/logos/logo-4.avif" />
 		</div>
 	</Container>
 </Section>

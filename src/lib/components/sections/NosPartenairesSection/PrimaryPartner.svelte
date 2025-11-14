@@ -12,5 +12,5 @@
 		<div class="font-heading text-5xl">Institut Français de Madagascar</div>
 		<div class="text-xl">Your future in your hands</div>
 	</div>
-	<img src="/logos/ifm.jpg" alt="" class="ml-auto aspect-square w-1/3 rounded-lg" />
+	<img src="/assets/logos/ifm.jpg" alt="" class="ml-auto aspect-square w-1/3 rounded-lg" />
 </div>
