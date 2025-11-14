@@ -27,10 +27,10 @@
 	let journeyPictures = $state<File[]>([]);
 
 	// Step 3 data
-	let wantsToReceiveMoney = $state(false);
 	let coordinates = $state<{ lat: number; lon: number } | null>(null);
 
 	// Step 4 data
+	let wantsToReceiveMoney = $state(false);
 	let idPicture = $state<File[]>([]);
 
 	const nextStep = () => {
@@ -61,6 +61,18 @@
 
 	const onMapLocationChange = (lat: number, lon: number) => {
 		coordinates = { lat, lon };
+	};
+
+	const handleSubmission = () => {
+		const withCompensation = idPicture.length > 0;
+		const message = withCompensation
+			? 'Vous êtes sur le point de soumettre votre expérience avec une demande de compensation. Continuer ?'
+			: 'Vous êtes sur le point de soumettre votre expérience sans demande de compensation. Continuer ?';
+
+		if (confirm(message)) {
+			wantsToReceiveMoney = withCompensation;
+			onShareExperience();
+		}
 	};
 </script>
 
@@ -121,36 +133,32 @@
 						onLocationChange={onMapLocationChange}
 					/>
 				{/if}
-
-				<div class="flex items-center gap-2 pt-4">
-					<input type="checkbox" id="receive-money" bind:checked={wantsToReceiveMoney} />
-					<Label for="receive-money"
-						>Je souhaite recevoir une compensation pour ma contribution.</Label
-					>
-				</div>
 			</div>
 			<div class="flex justify-between">
 				<AppButton onclick={prevStep}>Précédent</AppButton>
-				{#if wantsToReceiveMoney}
-					<AppButton onclick={nextStep} disabled={!coordinates}>Suivant</AppButton>
-				{:else}
-					<AppButton onclick={onShareExperience} disabled={!coordinates}>Soumettre</AppButton>
-				{/if}
+				<AppButton onclick={nextStep} disabled={!coordinates}>Suivant</AppButton>
 			</div>
 		{/if}
 
 		<!-- Step 4: ID Picture -->
-		{#if currentStep === 4 && wantsToReceiveMoney}
+		{#if currentStep === 4}
 			<div class="flex flex-col gap-4">
 				<Label for="id-picture">Photo de votre CIN ou carte d'identité</Label>
 				<p class="text-sm text-gray-600">
 					Pour recevoir votre compensation, veuillez fournir une pièce d'identité.
 				</p>
 				<FileInput bind:files={idPicture} id="id-picture" />
+				<div class="mt-2 rounded-lg border border-blue-200 bg-blue-50 p-3 text-sm text-blue-700">
+					<span class="font-bold">Conseil:</span> Assurez-vous que votre photo est claire et que
+					toutes les informations sont lisibles. Ceci est nécessaire pour valider votre identité
+					pour la compensation.
+				</div>
 			</div>
 			<div class="flex justify-between">
 				<AppButton onclick={prevStep}>Précédent</AppButton>
-				<AppButton onclick={onShareExperience}>Soumettre</AppButton>
+				<AppButton onclick={handleSubmission}>
+					{idPicture.length > 0 ? 'Soumettre avec compensation' : 'Soumettre sans compensation'}
+				</AppButton>
 			</div>
 		{/if}
 	</div>
