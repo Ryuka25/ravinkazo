@@ -2,11 +2,7 @@
 	import AppButton from '$lib/components/shared/AppButton.svelte';
 	import FileInput from '$lib/components/shared/FileInput.svelte';
 	import LeafletMap from '$lib/components/shared/LeafletMap.svelte';
-	import Input from '$lib/components/ui/input/input.svelte';
-	import Label from '$lib/components/ui/label/label.svelte';
-	import Textarea from '$lib/components/ui/textarea/textarea.svelte';
-	import { cn } from '$lib/utils';
-	import type { HTMLAttributes } from 'svelte/elements';
+	import { Button } from '$lib/components/ui/button';
 	import {
 		Dialog,
 		DialogContent,
@@ -15,11 +11,16 @@
 		DialogHeader,
 		DialogTitle
 	} from '$lib/components/ui/dialog';
-	import { Button } from '$lib/components/ui/button';
+	import Input from '$lib/components/ui/input/input.svelte';
+	import Label from '$lib/components/ui/label/label.svelte';
+	import Textarea from '$lib/components/ui/textarea/textarea.svelte';
+	import { cn } from '$lib/utils';
+	import type { HTMLAttributes } from 'svelte/elements';
+	import { toast } from 'svelte-sonner';
 
 	const onShareExperience = () => {
 		// Here I would gather all the $state variables and submit them
-		alert('experience shared');
+		toast.success('Votre expérience a été partagée avec succès !');
 	};
 
 	type Props = HTMLAttributes<HTMLDivElement>;
@@ -63,11 +64,11 @@
 					};
 				},
 				() => {
-					alert('Could not get your location.');
+					toast.error("Impossible d'obtenir votre position.");
 				}
 			);
 		} else {
-			alert('Geolocation is not supported by this browser.');
+			toast.error("La géolocalisation n'est pas supportée par ce navigateur.");
 		}
 	};
 
