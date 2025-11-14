@@ -1,6 +1,7 @@
 <script lang="ts">
 	import AppButton from '$lib/components/shared/AppButton.svelte';
 	import FileInput from '$lib/components/shared/FileInput.svelte';
+	import LeafletMap from '$lib/components/shared/LeafletMap.svelte';
 	import Input from '$lib/components/ui/input/input.svelte';
 	import Label from '$lib/components/ui/label/label.svelte';
 	import Textarea from '$lib/components/ui/textarea/textarea.svelte';
@@ -27,6 +28,7 @@
 
 	// Step 3 data
 	let wantsToReceiveMoney = $state(false);
+	let coordinates = $state<{ lat: number; lon: number } | null>(null);
 
 	// Step 4 data
 	let idPicture = $state<File[]>([]);
@@ -43,9 +45,10 @@
 		if (navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition(
 				(position) => {
-					alert(
-						`Latitude: ${position.coords.latitude}, Longitude: ${position.coords.longitude}. Location will be uploaded.`
-					);
+					coordinates = {
+						lat: position.coords.latitude,
+						lon: position.coords.longitude
+					};
 				},
 				() => {
 					alert('Could not get your location.');
@@ -54,6 +57,10 @@
 		} else {
 			alert('Geolocation is not supported by this browser.');
 		}
+	};
+
+	const onMapLocationChange = (lat: number, lon: number) => {
+		coordinates = { lat, lon };
 	};
 </script>
 
@@ -99,9 +106,21 @@
 			<div class="flex flex-col gap-4">
 				<Label>Localisation GPS</Label>
 				<p class="text-sm text-gray-600">
-					Partagez votre position pour que nous puissions localiser l'arbre.
+					Partagez votre position pour que nous puissions localiser l'arbre. Vous pouvez ajuster la
+					position en déplaçant le marqueur.
 				</p>
-				<AppButton onclick={getGpsLocation}>Obtenir ma position GPS</AppButton>
+
+				{#if !coordinates}
+					<AppButton onclick={getGpsLocation}>Obtenir ma position GPS</AppButton>
+				{/if}
+
+				{#if coordinates}
+					<LeafletMap
+						lat={coordinates.lat}
+						lon={coordinates.lon}
+						onLocationChange={onMapLocationChange}
+					/>
+				{/if}
 
 				<div class="flex items-center gap-2 pt-4">
 					<input type="checkbox" id="receive-money" bind:checked={wantsToReceiveMoney} />
@@ -113,9 +132,9 @@
 			<div class="flex justify-between">
 				<AppButton onclick={prevStep}>Précédent</AppButton>
 				{#if wantsToReceiveMoney}
-					<AppButton onclick={nextStep}>Suivant</AppButton>
+					<AppButton onclick={nextStep} disabled={!coordinates}>Suivant</AppButton>
 				{:else}
-					<AppButton onclick={onShareExperience}>Soumettre</AppButton>
+					<AppButton onclick={onShareExperience} disabled={!coordinates}>Soumettre</AppButton>
 				{/if}
 			</div>
 		{/if}
