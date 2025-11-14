@@ -156,6 +156,7 @@
 
 <div class={cn('flex gap-6 pt-16', className)} {...props}>
 	<div class="flex w-1/2 flex-col gap-6 rounded-lg bg-[#f2f2f2] p-16">
+		<div class="pb-8 text-center font-heading text-3xl font-bold">Partager mon experience</div>
 		<!-- Step 1: Names and Message -->
 		{#if currentStep === 1}
 			<div class="grid grid-cols-2 gap-4">
@@ -186,7 +187,7 @@
 				<FileInput bind:files={journeyPictures} multiple id="day-pictures" />
 			</div>
 			<div class="flex justify-between">
-				<Button onclick={prevStep}>Précédent</Button>
+				<Button variant="outline" onclick={prevStep}>Précédent</Button>
 				<Button onclick={nextStep} disabled={journeyPictures.length === 0}>Suivant</Button>
 			</div>
 		{/if}
@@ -197,7 +198,7 @@
 				<Label>Localisation GPS</Label>
 				<p class="text-sm text-gray-600">
 					Partagez votre position pour que nous puissions localiser l'arbre. Vous pouvez ajuster la
-	\t			position en déplaçant le marqueur.
+					position en déplaçant le marqueur.
 				</p>
 
 				{#if isLoadingLocation && !coordinates}
@@ -209,9 +210,13 @@
 							lon={coordinates.lon}
 							onLocationChange={onMapLocationChange}
 						/>
-						<Button class="absolute right-2 bottom-2 z-[1000]" onclick={() => getGpsLocation(true)}
-							>Obtenir ma position</Button
+						<Button
+							variant="outline"
+							class="absolute right-2 bottom-2 z-1000"
+							onclick={() => getGpsLocation(true)}
 						>
+							Obtenir ma position
+						</Button>
 					</div>
 				{/if}
 			</div>
@@ -235,7 +240,7 @@
 				</div>
 			</div>
 			<div class="flex justify-between">
-				<Button onclick={prevStep}>Précédent</Button>
+				<Button variant="outline" onclick={prevStep}>Précédent</Button>
 				<Button onclick={handleSubmission} disabled={isSubmitting}>
 					{#if isSubmitting}
 						<LoaderCircle class="mr-2 animate-spin" />
