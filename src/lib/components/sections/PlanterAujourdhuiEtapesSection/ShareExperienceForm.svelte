@@ -80,7 +80,9 @@
 			if (!coordinates) {
 				coordinates = defaultLocation;
 			}
-			toast.error("La géolocalisation n'est pas supportée. Vous pouvez définir votre position manuellement.");
+			toast.error(
+				"La géolocalisation n'est pas supportée. Vous pouvez définir votre position manuellement."
+			);
 		}
 	};
 
@@ -166,9 +168,8 @@
 							lon={coordinates.lon}
 							onLocationChange={onMapLocationChange}
 						/>
-						<Button
-							class="absolute bottom-2 right-2 z-[1000]"
-							onclick={() => getGpsLocation(true)}>Obtenir ma position</Button
+						<Button class="absolute right-2 bottom-2 z-[1000]" onclick={() => getGpsLocation(true)}
+							>Obtenir ma position</Button
 						>
 					</div>
 				{/if}
@@ -187,10 +188,9 @@
 					Pour recevoir votre compensation, veuillez fournir une pièce d'identité.
 				</p>
 				<FileInput bind:files={idPicture} id="id-picture" />
-				<div class="mt-2 rounded-lg border border-blue-200 bg-blue-50 p-3 text-sm text-blue-700">
+				<div class="text-sm">
 					<span class="font-bold">Conseil:</span> Assurez-vous que votre photo est claire et que toutes
-					les informations sont lisibles. Ceci est nécessaire pour valider votre identité pour la
-					compensation.
+					les informations sont lisibles. Ceci est nécessaire pour valider votre identité pour la compensation.
 				</div>
 			</div>
 			<div class="flex justify-between">
