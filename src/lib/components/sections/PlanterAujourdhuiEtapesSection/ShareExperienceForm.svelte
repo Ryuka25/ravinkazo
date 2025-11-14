@@ -7,6 +7,15 @@
 	import Textarea from '$lib/components/ui/textarea/textarea.svelte';
 	import { cn } from '$lib/utils';
 	import type { HTMLAttributes } from 'svelte/elements';
+	import {
+		Dialog,
+		DialogContent,
+		DialogDescription,
+		DialogFooter,
+		DialogHeader,
+		DialogTitle
+	} from '$lib/components/ui/dialog';
+	import { Button } from '$lib/components/ui/button';
 
 	const onShareExperience = () => {
 		// Here I would gather all the $state variables and submit them
@@ -32,6 +41,9 @@
 	// Step 4 data
 	let wantsToReceiveMoney = $state(false);
 	let idPicture = $state<File[]>([]);
+
+	let showConfirmationDialog = $state(false);
+	let isSubmittingWithCompensation = $state(false); // To store the choice before dialog confirmation
 
 	const nextStep = () => {
 		currentStep++;
@@ -64,15 +76,18 @@
 	};
 
 	const handleSubmission = () => {
-		const withCompensation = idPicture.length > 0;
-		const message = withCompensation
-			? 'Vous êtes sur le point de soumettre votre expérience avec une demande de compensation. Continuer ?'
-			: 'Vous êtes sur le point de soumettre votre expérience sans demande de compensation. Continuer ?';
+		isSubmittingWithCompensation = idPicture.length > 0;
+		showConfirmationDialog = true; // Open the dialog
+	};
 
-		if (confirm(message)) {
-			wantsToReceiveMoney = withCompensation;
-			onShareExperience();
-		}
+	const confirmSubmission = () => {
+		wantsToReceiveMoney = isSubmittingWithCompensation;
+		onShareExperience();
+		showConfirmationDialog = false; // Close the dialog
+	};
+
+	const cancelSubmission = () => {
+		showConfirmationDialog = false; // Close the dialog
 	};
 </script>
 
@@ -176,3 +191,25 @@
 		</p>
 	</div>
 </div>
+
+<!-- Confirmation Dialog -->
+<Dialog bind:open={showConfirmationDialog}>
+	<DialogContent>
+		<DialogHeader>
+			<DialogTitle>Confirmer votre soumission</DialogTitle>
+			<DialogDescription>
+				{#if isSubmittingWithCompensation}
+					Vous êtes sur le point de soumettre votre expérience avec une demande de compensation.
+					Veuillez confirmer.
+				{:else}
+					Vous êtes sur le point de soumettre votre expérience sans demande de compensation. Veuillez
+					confirmer.
+				{/if}
+			</DialogDescription>
+		</DialogHeader>
+		<DialogFooter>
+			<Button variant="outline" onclick={cancelSubmission}>Annuler</Button>
+			<Button onclick={confirmSubmission}>Confirmer</Button>
+		</DialogFooter>
+	</DialogContent>
+</Dialog>
