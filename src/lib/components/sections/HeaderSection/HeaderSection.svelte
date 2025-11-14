@@ -14,9 +14,12 @@
 <Section class={cn(className)}>
 	<Container>
 		<div class="item-end flex items-center justify-between py-4">
-			<a class="font-heading text-3xl font-bold md:text-6xl" href="/">GreenDay</a>
+			<a class="font-heading text-3xl font-bold md:text-6xl" href="/">Ravinkazo</a>
 			<div class="hidden gap-4 md:flex">
 				<AppButton variant="secondary" class="capitalize" href="/">accueil</AppButton>
+				<AppButton variant="secondary" class="capitalize" href="/nos-partenaires">
+					nos partenaires
+				</AppButton>
 				<AppButton variant="secondary" class="capitalize" href="/explorer-demain">
 					explorer demain
 				</AppButton>
@@ -32,11 +35,14 @@
 					<Sheet.Content class="p-4">
 						<Sheet.Header>
 							<Sheet.Title>
-								<div class="font-heading text-3xl font-bold md:text-6xl">GreenDay</div>
+								<div class="font-heading text-3xl font-bold md:text-6xl">Ravinkazo</div>
 							</Sheet.Title>
 						</Sheet.Header>
 						<div class="grid gap-4">
 							<AppButton variant="secondary" class="capitalize" href="/">accueil</AppButton>
+							<AppButton variant="secondary" class="capitalize" href="/nos-partenaires">
+								nos partenaires
+							</AppButton>
 							<AppButton variant="secondary" class="capitalize" href="/explorer-demain">
 								explorer demain
 							</AppButton>
