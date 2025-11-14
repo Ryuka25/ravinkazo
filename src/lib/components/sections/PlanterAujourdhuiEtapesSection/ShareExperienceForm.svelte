@@ -1,5 +1,6 @@
 <script lang="ts">
 	import AppButton from '$lib/components/shared/AppButton.svelte';
+	import FileInput from '$lib/components/shared/FileInput.svelte';
 	import Input from '$lib/components/ui/input/input.svelte';
 	import Label from '$lib/components/ui/label/label.svelte';
 	import Textarea from '$lib/components/ui/textarea/textarea.svelte';
@@ -12,6 +13,9 @@
 
 	type Props = HTMLAttributes<HTMLDivElement>;
 	let { class: className, ...props }: Props = $props();
+
+	let dayPictures = $state<File[]>([]);
+	let idPicture = $state<File[]>([]);
 </script>
 
 <div class={cn('flex gap-6 pt-16', className)} {...props}>
@@ -31,12 +35,12 @@
 			<Textarea id="message" />
 		</div>
 		<div class="flex flex-col gap-4">
-			<Label for="message">Insérer des photos de votre journée</Label>
-			<Input type="file" multiple />
+			<Label for="day-pictures">Insérer des photos de votre journée</Label>
+			<FileInput bind:files={dayPictures} multiple id="day-pictures" />
 		</div>
 		<div class="flex flex-col gap-4">
-			<Label for="message">Insérer une photo de CIN pour valider votre identité</Label>
-			<Input type="file" />
+			<Label for="id-picture">Insérer une photo de CIN pour valider votre identité</Label>
+			<FileInput bind:files={idPicture} id="id-picture" />
 		</div>
 
 		<AppButton onclick={onShareExperience}>Obtenir mes Ravinkazo</AppButton>
