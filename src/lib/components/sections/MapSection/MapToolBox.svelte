@@ -25,10 +25,7 @@
 </script>
 
 <div
-	class={cn(
-		'flex w-full flex-col gap-4 rounded-lg border-2 bg-white p-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] md:max-w-xs',
-		className
-	)}
+	class={cn('flex w-full flex-col gap-4 rounded-lg bg-white p-4  md:max-w-xs', className)}
 	{...props}
 >
 	<h2 class="text-center font-heading font-bold">Boite à outils</h2>

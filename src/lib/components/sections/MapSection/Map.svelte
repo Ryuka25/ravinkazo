@@ -17,4 +17,4 @@
 	});
 </script>
 
-<div class={cn('h-full min-h-[80vh] bg-[#7db9e8]', className)} bind:this={ref}></div>
+<div class={cn('h-full min-h-[80vh] bg-[#7db9e8] pt-20', className)} bind:this={ref}></div>

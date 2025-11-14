@@ -9,14 +9,14 @@
 
 :root {
   --radius: 0.625rem;
-  --background: #d0fa93;
+  --background: #fff;
   --foreground: oklch(0.129 0.042 264.695);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.129 0.042 264.695);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(65.775% 0.20796 298.295);
-  --primary-foreground: oklch(0.984 0.003 247.858);
+  --primary: #c4a1ff;
+  --primary-foreground: oklch(0.129 0.042 264.695);
   --secondary: oklch(0.968 0.007 247.896);
   --secondary-foreground: oklch(0.208 0.042 265.755);
   --muted: oklch(0.968 0.007 247.896);
@@ -114,6 +114,7 @@
   --color-sidebar-ring: var(--sidebar-ring);
   --font-sans: "DM Sans", sans-serif;
   --font-heading: "Lexend Mega", var(--font-sans);
+  --shadow-neo: 4px 4px 0px 0px rgba(0,0,0,1);
 }
 
 @layer base {
@@ -128,6 +129,6 @@
 
 @layer utilities {
   .font-heading {
-    @apply font-heading tracking-tight;
+    @apply font-heading tracking-tighter;
   }
 }

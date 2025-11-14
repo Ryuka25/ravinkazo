@@ -5,11 +5,8 @@
 </script>
 
 <div class="relative h-screen">
-	<MapContainer />
+	<MapContainer class="pt-12" />
 	<div class="absolute top-0 right-0 left-0">
-		<HeaderSection class="border-b-4 bg-[#d0fa93]" />
-	</div>
-	<div class="pointer-events-none absolute right-0 bottom-0 left-0">
-		<FooterSection class="*:pointer-events-auto" />
+		<HeaderSection class="bg-background" />
 	</div>
 </div>

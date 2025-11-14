@@ -12,6 +12,6 @@
 	bind:ref
 	bind:value={value as never}
 	data-slot="accordion"
-	class="w-full overflow-hidden rounded-lg border-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
+	class="w-full overflow-hidden rounded-lg"
 	{...restProps}
 />
