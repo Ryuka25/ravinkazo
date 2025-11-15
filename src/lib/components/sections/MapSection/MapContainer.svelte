@@ -6,6 +6,7 @@
 	import ModelSheet from './ModelSheet.svelte';
 
 	import { map, MAP_CONFIG, resetMapToDefaultPosition } from '$lib/stores/map.svelte';
+	import { addExperienceModelToMap, type ModelConfig } from '$lib/stores/map.svelte';
 	import { onMount } from 'svelte'; // Keep onMount
 	import { experiences, fetchExperiences } from '$lib/stores/experiences.svelte';
 	import type { Experience } from '$lib/services/api';
@@ -16,6 +17,9 @@
 
 	onMount(async () => {
 		await fetchExperiences(); // Call fetchExperiences from the store
+		experiences.data.map((experience) => {
+			addExperienceModelToMap(experience);
+		});
 	});
 
 	function flyToExperience(experience: Experience) {

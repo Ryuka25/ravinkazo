@@ -40,7 +40,7 @@
 		<div>Bearing</div>
 		<div>: {bearing.toFixed(2)}</div>
 	</div>
-	<div class="flex justify-end gap-2">
+	<div class="grid gap-2">
 		<Button class="w-full md:w-auto" onclick={onResetClick}>Rétourner au point de départ</Button>
 		<Button class="w-full md:w-auto" onclick={addRandomModelAndFlyTo}>Ajouter un modèle 3D</Button>
 	</div>

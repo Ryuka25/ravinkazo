@@ -61,7 +61,7 @@ export const api = {
 			} else {
 				return { success: false, message: 'Failed to submit experience.' };
 			}
-		} catch (error) {
+		} catch {
 			return { success: false, message: 'An error occurred.' };
 		}
 	},
@@ -74,7 +74,7 @@ export const api = {
 			} else {
 				return [];
 			}
-		} catch (error) {
+		} catch {
 			return [];
 		}
 	},
@@ -87,7 +87,7 @@ export const api = {
 			} else {
 				return null;
 			}
-		} catch (error) {
+		} catch {
 			return null;
 		}
 	}

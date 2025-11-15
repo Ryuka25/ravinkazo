@@ -4,6 +4,7 @@ import { GLTFLoader } from 'three-stdlib';
 import { addExperience } from './experiences.svelte';
 import type { Experience } from '$lib/services/api';
 import { SvelteDate } from 'svelte/reactivity';
+import type { ExperienceWithModel } from './experiences.svelte';
 
 // Constants
 export const MAP_CONFIG = {
@@ -81,7 +82,7 @@ export function closeModelSheet() {
 }
 
 // --- 3D Model Helper Functions ---
-interface ModelConfig {
+export interface ModelConfig {
 	id: string;
 	origin: [number, number];
 	altitude: number;
@@ -286,6 +287,41 @@ export const resetMapToDefaultPosition = () => {
 };
 
 let modelCounter = 0;
+
+export function addExperienceModelToMap(experience: ExperienceWithModel) {
+	if (!map.instance) return;
+
+	const modelConfig: ModelConfig = {
+		id: experience.modelId,
+		origin: [experience.lon, experience.lat],
+		altitude: 0, // Default altitude
+		rotation: [Math.PI / 2, 0, 0], // Default rotation
+		path: '/assets/34M_17/34M_17.gltf' // Default model path
+	};
+
+	// Add 3D model layer
+	if (!map.instance.getLayer(modelConfig.id)) {
+		const newLayer = create3DModelLayer(modelConfig);
+		map.instance.addLayer(newLayer);
+	}
+
+	// Add clickable point to GeoJSON source
+	// const source = map.instance.getSource('clickable-points') as maplibregl.GeoJSONSource;
+	// const data = source._data as GeoJSON.FeatureCollection;
+	// data.features.push({
+	// 	type: 'Feature',
+	// 	geometry: {
+	// 		type: 'Point',
+	// 		coordinates: modelConfig.origin // Use the origin from modelConfig
+	// 	},
+	// 	properties: {
+	// 		details: JSON.stringify({ id: experience.id.toString() })
+	// 	}
+	// });
+	// source.setData(data);
+
+	alert('here2');
+}
 
 export const addRandomModelAndFlyTo = () => {
 	if (!map.instance) return;
