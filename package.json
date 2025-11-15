@@ -53,6 +53,7 @@
 		"vite": "^7.1.10"
 	},
 	"dependencies": {
+		"@lottiefiles/dotlottie-svelte": "^0.8.7",
 		"@tailwindcss/typography": "^0.5.19",
 		"leaflet": "^1.9.4",
 		"maplibre-gl": "^5.12.0",
