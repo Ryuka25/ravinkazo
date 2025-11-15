@@ -1,9 +1,12 @@
 import maplibregl from 'maplibre-gl';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three-stdlib';
+import { addExperience } from './experiences.svelte';
+import type { Experience } from '$lib/services/api';
+import { SvelteDate } from 'svelte/reactivity';
 
 // Constants
-const MAP_CONFIG = {
+export const MAP_CONFIG = {
 	initialZoom: 17,
 	// Antanarivo, Anosy
 	initialCenter: [47.522, -18.917] as [number, number],
@@ -50,26 +53,27 @@ import { api } from '$lib/services/api';
 // ... other code
 
 export function openModelSheet(id: string) {
-    modelSheet.isModelSheetOpen = true;
-    modelSheet.selectedModel = null; // Clear previous selection for loading state
+	modelSheet.isModelSheetOpen = true;
+	modelSheet.selectedModel = null; // Clear previous selection for loading state
 
-    api.getExperienceDataById(id)
-        .then(data => {
-            if (data) {
-                modelSheet.selectedModel = {
-                    id: data.id,
-                    name: data.name,
-                    description: data.description,
-                    addedDate: data.addedDate,
-                    coordinates: data.coordinates
-                };
-            } else {
-                console.error(`No experience data found for ID: ${id}`);
-            }
-        })
-        .catch(error => {
-            console.error('Error fetching experience data:', error);
-        });
+	api
+		.getExperienceDataById(id)
+		.then((data) => {
+			if (data) {
+				modelSheet.selectedModel = {
+					id: data.id.toString(), // Convert number to string
+					name: `${data.firstname} ${data.lastname}`, // Combine firstname and lastname
+					description: data.message, // Map message to description
+					addedDate: data.added_date, // Map added_date to addedDate
+					coordinates: [data.lon, data.lat] // Map lat/lon to coordinates array
+				};
+			} else {
+				console.error(`No experience data found for ID: ${id}`);
+			}
+		})
+		.catch((error) => {
+			console.error('Error fetching experience data:', error);
+		});
 }
 
 export function closeModelSheet() {
@@ -300,15 +304,20 @@ export const addRandomModelAndFlyTo = () => {
 		rotation: [Math.PI / 2, 0, 0],
 		path: '/assets/34M_17/34M_17.gltf'
 	};
-
-	const modelDetails: ModelDetails = {
-		id: modelId,
-		name: `Arbre ${modelCounter}`,
-		description: 'Cet arbre a été ajouté de manière aléatoire pour la démonstration.',
-		// eslint-disable-next-line svelte/prefer-svelte-reactivity
-		addedDate: new Date().toISOString(),
-		coordinates: newCoords
+	// Create a mock Experience object
+	const newExperience: Experience = {
+		id: modelCounter, // Use modelCounter as a mock ID
+		firstname: 'Random',
+		lastname: 'User',
+		message: `Cet arbre a été ajouté de manière aléatoire pour la démonstration. ID: ${modelCounter}`,
+		lat: newCoords[1],
+		lon: newCoords[0],
+		added_date: new SvelteDate().toISOString(),
+		pictures: [] // No pictures for mock
 	};
+
+	// Add the new experience to the experiences store
+	addExperience(newExperience);
 
 	// Add 3D model layer
 	if (!map.instance.getLayer(modelId)) {
@@ -326,7 +335,8 @@ export const addRandomModelAndFlyTo = () => {
 			coordinates: newCoords
 		},
 		properties: {
-			details: JSON.stringify(modelDetails)
+			// Pass the ID of the new experience
+			details: JSON.stringify({ id: newExperience.id.toString() }) // openModelSheet expects string ID
 		}
 	});
 	source.setData(data);
