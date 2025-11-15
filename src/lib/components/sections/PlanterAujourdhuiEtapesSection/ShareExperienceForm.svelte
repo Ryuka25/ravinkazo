@@ -50,15 +50,23 @@
 		toast.promise(promise, {
 			loading: 'Envoi de votre expérience...',
 			success: (res) => {
-				resetForm();
-				return res.message;
+				isSubmitting = false; // Reset submitting state
+				if (res.success) {
+					resetForm();
+					return res.message;
+				} else {
+					// If the API call was not successful (e.g., non-2xx status handled by API service)
+					// we throw an error to trigger the error toast.
+					throw new Error(res.message || 'Une erreur est survenue lors de la soumission.');
+				}
 			},
 			error: (err: unknown) => {
+				console.log('err', err);
 				isSubmitting = false;
 				if (err instanceof Error) {
 					return err.message;
 				}
-				return 'An error occurred while submitting your experience.';
+				return 'Une erreur est survenue lors de la soumission de votre expérience.';
 			}
 		});
 	};

@@ -3,6 +3,7 @@
 	import MapToolBox from './MapToolBox.svelte';
 	import { cn } from '$lib/utils';
 	import Map from './Map.svelte';
+	import ModelSheet from './ModelSheet.svelte';
 
 	import { map, resetMapToDefaultPosition } from '$lib/stores/map.svelte';
 
@@ -23,3 +24,5 @@
 		/>
 	</div>
 </div>
+
+<ModelSheet />

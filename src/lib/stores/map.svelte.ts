@@ -7,11 +7,11 @@ const MAP_CONFIG = {
 	initialZoom: 17,
 	// Antanarivo, Anosy
 	initialCenter: [47.522, -18.917] as [number, number],
-	initialPitch: 70,
+	initialPitch: 50,
 	initialBearing: 0,
 	maxZoom: 18,
 	minZoom: 3,
-	maxPitch: 80,
+	maxPitch: 60,
 	minPitch: 30,
 	style: 'https://tiles.openfreemap.org/styles/liberty'
 };
@@ -24,6 +24,14 @@ interface MapState {
 	instance: maplibregl.Map | null;
 }
 
+export interface ModelDetails {
+	id: string;
+	name: string;
+	description: string;
+	addedDate: string;
+	coordinates: [number, number];
+}
+
 export const map = $state<MapState>({
 	instance: null,
 	zoom: MAP_CONFIG.initialZoom,
@@ -31,6 +39,42 @@ export const map = $state<MapState>({
 	pitch: MAP_CONFIG.initialPitch,
 	bearing: MAP_CONFIG.initialBearing
 });
+
+export const modelSheet = $state({
+	selectedModel: null as ModelDetails | null,
+	isModelSheetOpen: false
+});
+
+import { api } from '$lib/services/api';
+
+// ... other code
+
+export function openModelSheet(id: string) {
+    modelSheet.isModelSheetOpen = true;
+    modelSheet.selectedModel = null; // Clear previous selection for loading state
+
+    api.getExperienceDataById(id)
+        .then(data => {
+            if (data) {
+                modelSheet.selectedModel = {
+                    id: data.id,
+                    name: data.name,
+                    description: data.description,
+                    addedDate: data.addedDate,
+                    coordinates: data.coordinates
+                };
+            } else {
+                console.error(`No experience data found for ID: ${id}`);
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching experience data:', error);
+        });
+}
+
+export function closeModelSheet() {
+	modelSheet.isModelSheetOpen = false;
+}
 
 // --- 3D Model Helper Functions ---
 interface ModelConfig {
@@ -182,6 +226,39 @@ export const initializeMap = (ref: HTMLElement) => {
 			'horizon-color': '#ffffff',
 			'sky-horizon-blend': 0.5
 		});
+
+		map.instance?.addSource('clickable-points', {
+			type: 'geojson',
+			data: {
+				type: 'FeatureCollection',
+				features: []
+			}
+		});
+		map.instance?.addLayer({
+			id: 'clickable-points-layer',
+			type: 'circle',
+			source: 'clickable-points',
+			paint: {
+				'circle-radius': 30, // Adjust for click area
+				'circle-opacity': 0 // Invisible
+			}
+		});
+
+		map.instance?.on('click', 'clickable-points-layer', (e) => {
+			if (e.features && e.features.length > 0) {
+				const feature = e.features[0];
+				const details = JSON.parse(feature.properties.details);
+				openModelSheet(details.id); // Pass the ID
+			}
+		});
+
+		// Change cursor to pointer when hovering over clickable points
+		map.instance?.on('mouseenter', 'clickable-points-layer', () => {
+			if (map.instance) map.instance.getCanvas().style.cursor = 'pointer';
+		});
+		map.instance?.on('mouseleave', 'clickable-points-layer', () => {
+			if (map.instance) map.instance.getCanvas().style.cursor = '';
+		});
 	});
 
 	map.instance.on('move', () => {
@@ -210,20 +287,49 @@ export const addRandomModelAndFlyTo = () => {
 	if (!map.instance) return;
 
 	modelCounter++;
-	const randomLng = MAP_CONFIG.initialCenter[0] + (Math.random() - 0.5) * 0.01;
-	const randomLat = MAP_CONFIG.initialCenter[1] + (Math.random() - 0.5) * 0.01;
+	const randomLng = MAP_CONFIG.initialCenter[0] + (Math.random() - 0.5) * 0.02;
+	const randomLat = MAP_CONFIG.initialCenter[1] + (Math.random() - 0.5) * 0.02;
 	const newCoords: [number, number] = [randomLng, randomLat];
 
+	const modelId = `random-model-${modelCounter}`;
+
 	const newModelConfig: ModelConfig = {
-		id: `random-model-${modelCounter}`,
+		id: modelId,
 		origin: newCoords,
 		altitude: 0,
 		rotation: [Math.PI / 2, 0, 0],
 		path: '/assets/34M_17/34M_17.gltf'
 	};
 
-	const newLayer = create3DModelLayer(newModelConfig);
-	map.instance.addLayer(newLayer);
+	const modelDetails: ModelDetails = {
+		id: modelId,
+		name: `Arbre ${modelCounter}`,
+		description: 'Cet arbre a été ajouté de manière aléatoire pour la démonstration.',
+		// eslint-disable-next-line svelte/prefer-svelte-reactivity
+		addedDate: new Date().toISOString(),
+		coordinates: newCoords
+	};
+
+	// Add 3D model layer
+	if (!map.instance.getLayer(modelId)) {
+		const newLayer = create3DModelLayer(newModelConfig);
+		map.instance.addLayer(newLayer);
+	}
+
+	// Add clickable point to GeoJSON source
+	const source = map.instance.getSource('clickable-points') as maplibregl.GeoJSONSource;
+	const data = source._data as GeoJSON.FeatureCollection;
+	data.features.push({
+		type: 'Feature',
+		geometry: {
+			type: 'Point',
+			coordinates: newCoords
+		},
+		properties: {
+			details: JSON.stringify(modelDetails)
+		}
+	});
+	source.setData(data);
 
 	map.instance.flyTo({
 		center: newCoords,

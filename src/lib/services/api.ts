@@ -1,4 +1,22 @@
-// src/lib/services/api.ts
+const API_BASE_URL = 'http://localhost:8000';
+
+export interface Picture {
+	id: number;
+	path: string;
+	experience_id: number;
+	is_id_picture: number;
+}
+
+export interface Experience {
+	id: number;
+	firstname: string;
+	lastname: string;
+	message: string;
+	lat: number;
+	lon: number;
+	added_date: string;
+	pictures: Picture[];
+}
 
 export interface ExperienceData {
 	firstname: string;
@@ -21,34 +39,52 @@ export const api = {
 		formData.append('message', data.message);
 		formData.append('coordinates', JSON.stringify(data.coordinates));
 
-		data.journeyPictures.forEach((file, index) => {
-			formData.append(`journeyPicture_${index}`, file);
+		data.journeyPictures.forEach((file) => {
+			formData.append(`journeyPictures`, file);
 		});
 
 		if (data.idPicture) {
 			formData.append('idPicture', data.idPicture);
 		}
 
-		// Mocking the API call
-		return new Promise((resolve) => {
-			setTimeout(() => {
-				console.log('Mock API call successful');
-				// Here you would use fetch:
-				// try {
-				//     const response = await fetch('/api/experience', {
-				//         method: 'POST',
-				//         body: formData,
-				//     });
-				//     if (response.ok) {
-				//         resolve({ success: true, message: 'Experience submitted successfully!' });
-				//     } else {
-				//         resolve({ success: false, message: 'Failed to submit experience.' });
-				//     }
-				// } catch (error) {
-				//     resolve({ success: false, message: 'An error occurred.' });
-				// }
-				resolve({ success: true, message: 'Votre expérience a été partagée avec succès !' });
-			}, 1000); // 1 second delay
-		});
+		try {
+			const response = await fetch(`${API_BASE_URL}/experiences/`, {
+				method: 'POST',
+				body: formData
+			});
+			if (response.ok) {
+				return { success: true, message: 'Experience submitted successfully!' };
+			} else {
+				return { success: false, message: 'Failed to submit experience.' };
+			}
+		} catch (error) {
+			return { success: false, message: 'An error occurred.' };
+		}
+	},
+
+	getExperiences: async (): Promise<Experience[]> => {
+		try {
+			const response = await fetch(`${API_BASE_URL}/experiences/`);
+			if (response.ok) {
+				return await response.json();
+			} else {
+				return [];
+			}
+		} catch (error) {
+			return [];
+		}
+	},
+
+	getExperienceDataById: async (id: string): Promise<Experience | null> => {
+		try {
+			const response = await fetch(`${API_BASE_URL}/experiences/${id}`);
+			if (response.ok) {
+				return await response.json();
+			} else {
+				return null;
+			}
+		} catch (error) {
+			return null;
+		}
 	}
 };
