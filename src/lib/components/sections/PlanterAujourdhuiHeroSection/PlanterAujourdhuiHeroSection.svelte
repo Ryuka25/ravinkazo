@@ -8,7 +8,7 @@
 		<div class="grid gap-16 rounded-lg bg-[#f2f2f2] py-16">
 			<div class="text-center font-heading text-5xl font-bold">
 				Planter
-				<span class="inline-block -rotate-2 border-4 bg-[#7db9e8] text-foreground shadow-neo">
+				<span class="inline-block -rotate-2 border-4 bg-[#c4a1ff] text-foreground shadow-neo">
 					aujourd'hui
 				</span>
 			</div>

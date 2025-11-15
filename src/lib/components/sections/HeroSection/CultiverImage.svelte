@@ -5,5 +5,5 @@
 <img
 	src={cultiver}
 	alt=""
-	class="-mt-20 w-1/3 rotate-5 -motion-rotate-loop-10 motion-ease-linear motion-duration-3000"
+	class="-mt-20 w-1/3 rotate-2 -motion-rotate-loop-4 motion-ease-linear motion-duration-4000"
 />
