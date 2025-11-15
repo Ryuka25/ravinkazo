@@ -12,7 +12,6 @@
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { cn } from '$lib/utils';
 	import Button from '$lib/components/ui/button/button.svelte';
-	import { addRandomModelAndFlyTo } from '$lib/stores/map.svelte';
 
 	let {
 		class: className,
@@ -23,6 +22,8 @@
 		onResetClick = () => {},
 		...props
 	}: MapToolBoxProps = $props();
+
+	let test = 0;
 </script>
 
 <div
@@ -42,6 +43,5 @@
 	</div>
 	<div class="grid gap-2">
 		<Button class="w-full md:w-auto" onclick={onResetClick}>Rétourner au point de départ</Button>
-		<Button class="w-full md:w-auto" onclick={addRandomModelAndFlyTo}>Ajouter un modèle 3D</Button>
 	</div>
 </div>

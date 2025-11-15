@@ -320,7 +320,17 @@ export function addExperienceModelToMap(experience: ExperienceWithModel) {
 	});
 }
 
-export const addRandomModelAndFlyTo = () => {
+function runWhenLoaded(map: maplibregl.Map, fn: () => void) {
+	if (map.loaded() && map.isStyleLoaded()) {
+		// Already loaded → call immediately
+		fn();
+	} else {
+		// Not yet loaded → wait for load
+		map.once('load', fn);
+	}
+}
+
+export const addRandomModelAndFlyTo = (callback: (newExperience: Experience) => void) => {
 	if (!map.instance) return;
 
 	modelCounter++;
@@ -352,31 +362,37 @@ export const addRandomModelAndFlyTo = () => {
 	// Add the new experience to the experiences store
 	addExperience(newExperience);
 
-	// Add 3D model layer
-	if (!map.instance.getLayer(modelId)) {
-		const newLayer = create3DModelLayer(newModelConfig);
-		map.instance.addLayer(newLayer);
-	}
-
-	// Add clickable point to GeoJSON source
-	const source = map.instance.getSource('clickable-points') as maplibregl.GeoJSONSource;
-	const data = source._data as GeoJSON.FeatureCollection;
-	data.features.push({
-		type: 'Feature',
-		geometry: {
-			type: 'Point',
-			coordinates: newCoords
-		},
-		properties: {
-			// Pass the ID of the new experience
-			details: JSON.stringify({ id: newExperience.id.toString() }) // openModelSheet expects string ID
+	const addSource = () => {
+		// Add 3D model layer
+		if (!map.instance?.getLayer(modelId)) {
+			const newLayer = create3DModelLayer(newModelConfig);
+			map.instance?.addLayer(newLayer);
 		}
-	});
-	source.setData(data);
 
-	map.instance.flyTo({
-		center: newCoords,
-		zoom: 18,
-		pitch: 75
-	});
+		// Add clickable point to GeoJSON source
+		const source = map.instance?.getSource('clickable-points') as maplibregl.GeoJSONSource;
+		const data = source._data as GeoJSON.FeatureCollection;
+		data.features.push({
+			type: 'Feature',
+			geometry: {
+				type: 'Point',
+				coordinates: newCoords
+			},
+			properties: {
+				// Pass the ID of the new experience
+				details: JSON.stringify({ id: modelId }) // openModelSheet expects string ID
+			}
+		});
+		source.setData(data);
+
+		map.instance?.flyTo({
+			center: newCoords,
+			zoom: 18,
+			pitch: 75
+		});
+	};
+
+	runWhenLoaded(map.instance, addSource);
+
+	callback(newExperience);
 };
