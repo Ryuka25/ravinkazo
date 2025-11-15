@@ -50,6 +50,7 @@ export const modelSheet = $state({
 });
 
 import { api } from '$lib/services/api';
+import { getRandomTree } from '$lib/data/trees';
 
 export function openModelSheet(id: string) {
 	modelSheet.isModelSheetOpen = true;
@@ -96,6 +97,7 @@ export interface ModelConfig {
 	altitude: number;
 	rotation: [number, number, number];
 	path: string;
+	customScale?: number;
 }
 
 function calculateModelTransform(modelConfig: ModelConfig) {
@@ -104,6 +106,8 @@ function calculateModelTransform(modelConfig: ModelConfig) {
 		modelConfig.altitude
 	);
 
+	const customScale = modelConfig.customScale ?? 1;
+
 	return {
 		translateX: mercatorCoord.x,
 		translateY: mercatorCoord.y,
@@ -111,19 +115,21 @@ function calculateModelTransform(modelConfig: ModelConfig) {
 		rotateX: modelConfig.rotation[0],
 		rotateY: modelConfig.rotation[1],
 		rotateZ: modelConfig.rotation[2],
-		scale: mercatorCoord.meterInMercatorCoordinateUnits()
+		scale: mercatorCoord.meterInMercatorCoordinateUnits() * customScale
 	};
 }
 
 function createLights() {
 	const lights: { position: THREE.Vector3Tuple }[] = [
-		{ position: [0, -70, 100] },
-		{ position: [0, 70, 100] }
+		{ position: [0, 70, 100] },
+		{ position: [0, -50, 100] },
+		{ position: [0, 30, 100] }
 	];
 
 	return lights.map(({ position }) => {
 		const light = new THREE.DirectionalLight(0xffffff);
 		light.position.set(...position).normalize();
+		light.intensity = 2;
 		return light;
 	});
 }
@@ -300,13 +306,16 @@ export function addExperienceModelToMap(experience: ExperienceWithModel) {
 	if (!map.instance) return;
 
 	const addSourceAndLayer = () => {
+		const tree = getRandomTree(experience.id);
+
 		// Create model config
 		const modelConfig: ModelConfig = {
 			id: experience.modelId,
 			origin: [experience.lon, experience.lat],
 			altitude: 0, // Default altitude
 			rotation: [Math.PI / 2, 0, 0], // Default rotation
-			path: '/assets/34M_17/34M_17.gltf' // Default model path
+			path: tree.src,
+			customScale: tree.customScale // Default model path
 		};
 
 		// Add 3D model layer
@@ -354,12 +363,15 @@ export const addRandomModelAndFlyTo = (callback: (newExperience: Experience) => 
 
 	const modelId = `random-model-${modelCounter}`;
 
+	const tree = getRandomTree(modelCounter);
+
 	const newModelConfig: ModelConfig = {
 		id: modelId,
 		origin: newCoords,
 		altitude: 0,
 		rotation: [Math.PI / 2, 0, 0],
-		path: '/assets/34M_17/34M_17.gltf'
+		path: tree.src,
+		customScale: tree.customScale // Default model path
 	};
 	// Create a mock Experience object
 	const newExperience: Experience = {

@@ -1,0 +1,11 @@
+Model Information:
+* title:	MT Tree 01
+* source:	https://sketchfab.com/3d-models/mt-tree-01-24e7ba2317c147c6937f18cf7cac6bcd
+* author:	daoistpanda (https://sketchfab.com/daoistpanda)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "MT Tree 01" (https://sketchfab.com/3d-models/mt-tree-01-24e7ba2317c147c6937f18cf7cac6bcd) by daoistpanda (https://sketchfab.com/daoistpanda) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
