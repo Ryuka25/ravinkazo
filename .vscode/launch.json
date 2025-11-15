@@ -1,0 +1,26 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug Firefox (pnpm dev)",
+      "type": "firefox",
+      "request": "launch",
+      "reAttach": true,
+      "url": "http://localhost:5173",
+      "webRoot": "${workspaceFolder}",
+      "pathMappings": [
+        {
+          "url": "webpack:///src/",
+          "path": "${workspaceFolder}/src"
+        }
+      ]
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Start pnpm dev + Debug Firefox",
+      "configurations": ["Debug Firefox (pnpm dev)"],
+      "preLaunchTask": "pnpm: dev"
+    }
+  ]
+}

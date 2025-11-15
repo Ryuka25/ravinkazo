@@ -4,12 +4,12 @@
 	import { cn } from '$lib/utils';
 	import Map from './Map.svelte';
 	import ModelSheet from './ModelSheet.svelte';
+	import MapWebsocket from './MapWebsocket.svelte';
 
-	import { map, MAP_CONFIG, resetMapToDefaultPosition } from '$lib/stores/map.svelte';
-	import { addExperienceModelToMap, type ModelConfig } from '$lib/stores/map.svelte';
+	import { map, resetMapToDefaultPosition, flyToExperience } from '$lib/stores/map.svelte';
+	import { addExperienceModelToMap } from '$lib/stores/map.svelte';
 	import { onMount } from 'svelte'; // Keep onMount
 	import { experiences, fetchExperiences } from '$lib/stores/experiences.svelte';
-	import type { Experience } from '$lib/services/api';
 
 	type MapContainerProps = HTMLAttributes<HTMLDivElement>;
 
@@ -21,17 +21,6 @@
 			addExperienceModelToMap(experience);
 		});
 	});
-
-	function flyToExperience(experience: Experience) {
-		if (map.instance) {
-			map.instance.flyTo({
-				center: [experience.lon, experience.lat], // Coordinates are [lon, lat]
-				zoom: MAP_CONFIG.initialZoom, // A reasonable zoom level
-				pitch: MAP_CONFIG.initialPitch, // A reasonable zoom level
-				essential: true // This animation is considered essential with respect to other animations
-			});
-		}
-	}
 </script>
 
 <div class={cn('relative h-full', className)} {...props}>
@@ -79,3 +68,4 @@
 </div>
 
 <ModelSheet />
+<MapWebsocket />

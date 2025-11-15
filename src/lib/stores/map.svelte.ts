@@ -74,6 +74,17 @@ export function openModelSheet(id: string) {
 		});
 }
 
+export function flyToExperience(experience: Experience) {
+	if (map.instance) {
+		map.instance.flyTo({
+			center: [experience.lon, experience.lat], // Coordinates are [lon, lat]
+			zoom: MAP_CONFIG.initialZoom, // A reasonable zoom level
+			pitch: MAP_CONFIG.initialPitch, // A reasonable zoom level
+			essential: true // This animation is considered essential with respect to other animations
+		});
+	}
+}
+
 export function closeModelSheet() {
 	modelSheet.isModelSheetOpen = false;
 }
@@ -288,22 +299,23 @@ let modelCounter = 0;
 export function addExperienceModelToMap(experience: ExperienceWithModel) {
 	if (!map.instance) return;
 
-	const modelConfig: ModelConfig = {
-		id: experience.modelId,
-		origin: [experience.lon, experience.lat],
-		altitude: 0, // Default altitude
-		rotation: [Math.PI / 2, 0, 0], // Default rotation
-		path: '/assets/34M_17/34M_17.gltf' // Default model path
-	};
+	const addSourceAndLayer = () => {
+		// Create model config
+		const modelConfig: ModelConfig = {
+			id: experience.modelId,
+			origin: [experience.lon, experience.lat],
+			altitude: 0, // Default altitude
+			rotation: [Math.PI / 2, 0, 0], // Default rotation
+			path: '/assets/34M_17/34M_17.gltf' // Default model path
+		};
 
-	// Add 3D model layer
-	if (!map.instance.getLayer(modelConfig.id)) {
-		const newLayer = create3DModelLayer(modelConfig);
-		map.instance.addLayer(newLayer);
-	}
+		// Add 3D model layer
+		if (!map.instance?.getLayer(modelConfig.id)) {
+			const newLayer = create3DModelLayer(modelConfig);
+			map.instance?.addLayer(newLayer);
+		}
 
-	// Add clickable point to GeoJSON source
-	map.instance.on('load', () => {
+		// Add clickable point to GeoJSON source
 		const source = map.instance?.getSource('clickable-points') as maplibregl.GeoJSONSource;
 		const data = source._data as GeoJSON.FeatureCollection;
 		data.features.push({
@@ -317,7 +329,9 @@ export function addExperienceModelToMap(experience: ExperienceWithModel) {
 			}
 		});
 		source.setData(data);
-	});
+	};
+
+	runWhenLoaded(map.instance, addSourceAndLayer);
 }
 
 function runWhenLoaded(map: maplibregl.Map, fn: () => void) {
