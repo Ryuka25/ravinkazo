@@ -51,12 +51,9 @@ export const modelSheet = $state({
 
 import { api } from '$lib/services/api';
 
-// ... other code
-
 export function openModelSheet(id: string) {
 	modelSheet.isModelSheetOpen = true;
 	modelSheet.selectedModel = null; // Clear previous selection for loading state
-
 	api
 		.getExperienceDataById(id)
 		.then((data) => {
@@ -306,21 +303,21 @@ export function addExperienceModelToMap(experience: ExperienceWithModel) {
 	}
 
 	// Add clickable point to GeoJSON source
-	// const source = map.instance.getSource('clickable-points') as maplibregl.GeoJSONSource;
-	// const data = source._data as GeoJSON.FeatureCollection;
-	// data.features.push({
-	// 	type: 'Feature',
-	// 	geometry: {
-	// 		type: 'Point',
-	// 		coordinates: modelConfig.origin // Use the origin from modelConfig
-	// 	},
-	// 	properties: {
-	// 		details: JSON.stringify({ id: experience.id.toString() })
-	// 	}
-	// });
-	// source.setData(data);
-
-	alert('here2');
+	map.instance.on('load', () => {
+		const source = map.instance?.getSource('clickable-points') as maplibregl.GeoJSONSource;
+		const data = source._data as GeoJSON.FeatureCollection;
+		data.features.push({
+			type: 'Feature',
+			geometry: {
+				type: 'Point',
+				coordinates: modelConfig.origin // Use the origin from modelConfig
+			},
+			properties: {
+				details: JSON.stringify({ id: experience.id.toString() })
+			}
+		});
+		source.setData(data);
+	});
 }
 
 export const addRandomModelAndFlyTo = () => {
