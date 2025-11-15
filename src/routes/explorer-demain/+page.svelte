@@ -1,6 +1,23 @@
 <script>
 	import HeaderSection from '$lib/components/sections/HeaderSection/HeaderSection.svelte';
 	import MapContainer from '$lib/components/sections/MapSection/MapContainer.svelte';
+	import {
+		Dialog,
+		DialogContent,
+		DialogDescription,
+		DialogHeader,
+		DialogTitle,
+		DialogFooter,
+		DialogClose
+	} from '$lib/components/ui/dialog';
+	import { Button } from '$lib/components/ui/button';
+	import { onMount } from 'svelte';
+
+	let showWelcomeDialog = $state(false);
+
+	onMount(() => {
+		showWelcomeDialog = true;
+	});
 </script>
 
 <div class="relative h-screen">
@@ -9,3 +26,22 @@
 		<HeaderSection class="bg-background" />
 	</div>
 </div>
+
+<Dialog bind:open={showWelcomeDialog}>
+	<DialogContent>
+		<DialogHeader>
+			<DialogTitle class="sr-only">Explorer Demain</DialogTitle>
+		</DialogHeader>
+		<div class="py-4">
+			<p>
+				La carte se met à jour en temps réel pour vous guider vers les dernières actions de
+				reforestation. Explorez, suivez, partagez : chaque arbre planté dessine notre avenir commun.
+			</p>
+		</div>
+		<DialogFooter>
+			<DialogClose>
+				<Button type="button" onclick={() => (showWelcomeDialog = false)}>Compris !</Button>
+			</DialogClose>
+		</DialogFooter>
+	</DialogContent>
+</Dialog>
