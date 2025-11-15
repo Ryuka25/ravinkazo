@@ -66,7 +66,7 @@
 									<Accordion.Root type="single">
 										{#each currentSubStep().faqs as faq, idx}
 											<Accordion.Item value={`faq-${idx}`}>
-												<Accordion.Trigger class="bg-[#f9edae]">{faq.question}</Accordion.Trigger>
+												<Accordion.Trigger class="bg-[#23d58c]">{faq.question}</Accordion.Trigger>
 												<Accordion.Content class="bg-[#f2f2f2]">
 													{faq.response}
 												</Accordion.Content>
@@ -81,14 +81,14 @@
 										<div
 											class={cn(
 												'h-6 w-16 rounded-lg bg-white',
-												steps.substepCurrentIndex >= idx && 'bg-[#f9edae]'
+												steps.substepCurrentIndex >= idx && 'bg-[#23d58c]'
 											)}
 										></div>
 									{/if}
 									<div
 										class={cn(
 											'flex size-24 items-center justify-center rounded-lg bg-white font-heading text-4xl font-bold',
-											steps.substepCurrentIndex >= idx && 'bg-[#f9edae]'
+											steps.substepCurrentIndex >= idx && 'bg-[#23d58c]'
 										)}
 									>
 										{idx + 1}

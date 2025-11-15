@@ -21,6 +21,11 @@
 	</div>
 	<div class="flex items-center justify-around">
 		<CultiverImage />
-		<div class="font-heading text-6xl font-bold">Cultiver demain</div>
+		<div class="font-heading text-6xl font-bold">
+			Cultiver
+			<span class="inline-block rotate-2 border-4 bg-[#23d58c] text-foreground shadow-neo">
+				demain
+			</span>
+		</div>
 	</div>
 </div>

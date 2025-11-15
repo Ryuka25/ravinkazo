@@ -7,7 +7,7 @@
 	let { class: className, ...props }: Props = $props();
 </script>
 
-<div class={cn('flex items-center gap-8 rounded-lg bg-[#f9edae] p-16', className)} {...props}>
+<div class={cn('flex items-center gap-8 rounded-lg bg-[#23d58c] p-16', className)} {...props}>
 	<div class="flex w-2/3 flex-col gap-8 text-black">
 		<div class="font-heading text-5xl">Institut Français de Madagascar</div>
 		<div class="text-xl">Your future in your hands</div>

@@ -10,7 +10,7 @@
 
 <div
 	class={cn(
-		'flex flex-col items-center justify-center gap-4 rounded-lg bg-[#f9edae] p-8 font-heading text-xl',
+		'flex flex-col items-center justify-center gap-4 rounded-lg bg-[#f2f2f2] p-8 font-heading text-xl',
 		className
 	)}
 >

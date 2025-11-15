@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Container from '$lib/components/shared/Container.svelte';
+	import Logo from '$lib/components/shared/Logo.svelte';
 	import type { SectionProps } from '$lib/components/shared/Section.svelte';
 	import Section from '$lib/components/shared/Section.svelte';
 	import Button from '$lib/components/ui/button/button.svelte';
@@ -14,7 +15,9 @@
 <Section class={cn(className)}>
 	<Container>
 		<div class="item-end flex items-center justify-between py-4">
-			<a class="font-heading text-3xl font-bold md:text-6xl" href="/">Ravinkazo</a>
+			<a href="/">
+				<Logo />
+			</a>
 			<div class="hidden gap-4 md:flex">
 				<Button variant="secondary" class="capitalize" href="/">accueil</Button>
 				<Button variant="secondary" class="capitalize" href="/nos-partenaires">

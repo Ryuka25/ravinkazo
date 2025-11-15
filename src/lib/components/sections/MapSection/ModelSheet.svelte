@@ -56,10 +56,9 @@
 				</div>
 			{/if}
 			<div
-				class="flex flex-col items-center justify-center gap-8 rounded-lg bg-primary p-6 text-primary-foreground"
+				class="flex flex-col items-center justify-center gap-8 rounded-lg bg-[#23d58c] p-6 text-primary-foreground"
 			>
 				<div class="text-center font-heading text-xl font-bold">
-					Toi
 					<span class="inline-block -rotate-2 border-4 bg-white shadow-neo">Planter</span>
 					<span class="inline-block rotate-2 border-4 bg-white shadow-neo">Aujourd'hui</span>
 				</div>
