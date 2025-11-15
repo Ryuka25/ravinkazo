@@ -1,6 +1,9 @@
 <script>
-	import * as Accordion from '$lib/components/ui/accordion';
+	import { DotLottieSvelte } from '@lottiefiles/dotlottie-svelte';
+	import { MoveLeft, MoveRight } from '@lucide/svelte';
 
+	import { cn } from '$lib/utils';
+	import * as Accordion from '$lib/components/ui/accordion';
 	import Container from '$lib/components/shared/Container.svelte';
 	import Section from '$lib/components/shared/Section.svelte';
 	import {
@@ -12,12 +15,15 @@
 		currentSubStep,
 		isLastSubStep
 	} from '$lib/stores/steps.svelte';
-
-	import { MoveLeft, MoveRight } from '@lucide/svelte';
-
-	import Tree from '$lib/assets/tree.png';
 	import ShareExperienceForm from './ShareExperienceForm.svelte';
-	import { cn } from '$lib/utils';
+	import Tree from '$lib/assets/tree.png';
+	import arbre from '$lib/assets/arbre.png';
+	import cherry from '$lib/assets/cherry.png';
+	import baobab from '$lib/assets/baobab.png';
+	import pousse1 from '$lib/assets/pousse-1.png';
+	import market1 from '$lib/assets/market-1.png';
+	import pousse2 from '$lib/assets/pousse-2.png';
+	import market2 from '$lib/assets/market-2.png';
 
 	let showForm = false;
 
@@ -50,12 +56,59 @@
 		<div class="flex gap-6">
 			<div class="flex w-2/3 flex-col gap-6">
 				<div class="relative">
-					<div>
-						<img
-							class="aspect-video rounded-lg object-cover"
-							src="/assets/composition-19.png"
-							alt=""
-						/>
+					<div class="pointer-events-none relative aspect-video rounded-lg bg-[#f2f2f2]">
+						{#if steps.currentIndex == 0 && steps.substepCurrentIndex == 0}
+							<img
+								class="absolute top-10 left-20 h-1/2 motion-rotate-loop-[6deg] motion-translate-x-loop-[13%] motion-translate-y-loop-[-17%] rounded-lg motion-ease-linear motion-duration-3000"
+								src={cherry}
+								alt=""
+							/>
+							<img
+								class="absolute bottom-5 -left-10 h-1/2 -rotate-10 motion-rotate-loop-[6deg] motion-translate-x-loop-[13%] rounded-lg motion-ease-linear motion-duration-3000"
+								src={baobab}
+								alt=""
+							/>
+							<img
+								class="absolute top-10 right-10 h-4/5 -rotate-10 motion-rotate-loop-20 rounded-lg motion-ease-linear motion-duration-4000"
+								src={arbre}
+								alt=""
+							/>
+							<div class="scale-175">
+								<DotLottieSvelte src="/assets/animations/search.json" loop autoplay />
+							</div>
+						{:else if steps.currentIndex == 0 && steps.substepCurrentIndex == 1}
+							<img
+								class="absolute top-10 left-20 h-1/2 motion-rotate-loop-[6deg] motion-translate-x-loop-[13%] motion-translate-y-loop-[-17%] rounded-lg motion-ease-linear motion-duration-3000"
+								src={pousse2}
+								alt=""
+							/>
+							<img
+								class="absolute bottom-5 -left-10 h-1/2 -rotate-10 motion-rotate-loop-[6deg] motion-translate-x-loop-[13%] rounded-lg motion-ease-linear motion-duration-3000"
+								src={market2}
+								alt=""
+							/>
+							<img
+								class="absolute top-10 right-20 h-1/2 -motion-rotate-loop-6 motion-translate-x-loop-[-13%] motion-translate-y-loop-[-17%] rounded-lg motion-ease-linear motion-duration-3000"
+								src={market1}
+								alt=""
+							/>
+							<img
+								class="absolute -right-10 bottom-5 h-1/2 rotate-10 -motion-rotate-loop-[6deg] -motion-translate-x-loop-[13%] rounded-lg motion-ease-linear motion-duration-3000"
+								src={pousse2}
+								alt=""
+							/>
+							<div class="translate-x-10 scale-175">
+								<DotLottieSvelte src="/assets/animations/trolley.json" loop autoplay />
+							</div>
+						{:else if (steps.currentIndex == 0 && steps.substepCurrentIndex == 2) || (steps.currentIndex == 1 && steps.substepCurrentIndex == 0) || (steps.currentIndex == 1 && steps.substepCurrentIndex == 1)}
+							<div class="scale-150">
+								<DotLottieSvelte src="/assets/animations/plantation.json" loop autoplay />
+							</div>
+						{:else if steps.currentIndex == 1 && steps.substepCurrentIndex == 2}
+							<div class="scale-125">
+								<DotLottieSvelte src="/assets/animations/gardening.json" loop autoplay />
+							</div>
+						{/if}
 					</div>
 					<img
 						src={Tree}
