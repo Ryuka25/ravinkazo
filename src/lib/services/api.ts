@@ -92,3 +92,5 @@ export const api = {
 		}
 	}
 };
+
+export const getUploadFullPath = (uploadUri: string) => API_BASE_URL + '/' + uploadUri;

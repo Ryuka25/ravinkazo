@@ -1,12 +1,9 @@
 <script lang="ts">
-	import {
-		Sheet,
-		SheetContent,
-		SheetDescription,
-		SheetHeader,
-		SheetTitle
-	} from '$lib/components/ui/sheet';
+	import Button from '$lib/components/ui/button/button.svelte';
+	import { Sheet, SheetContent, SheetHeader, SheetTitle } from '$lib/components/ui/sheet';
+	import { getUploadFullPath } from '$lib/services/api';
 	import { modelSheet, closeModelSheet } from '$lib/stores/map.svelte';
+	import { MoveRight } from '@lucide/svelte';
 </script>
 
 <Sheet
@@ -17,28 +14,62 @@
 		}
 	}}
 >
-	<SheetContent>
+	<SheetContent class="max-w-2xl overflow-y-scroll">
 		<SheetHeader>
-			<SheetTitle>{modelSheet.selectedModel?.name ?? 'Détails du modèle'}</SheetTitle>
-			<SheetDescription>Informations sur le point d'intérêt sélectionné.</SheetDescription>
+			<SheetTitle class="sr-only">
+				{modelSheet.selectedModel?.name ?? 'Détails du modèle'}
+			</SheetTitle>
 		</SheetHeader>
-		{#if modelSheet.selectedModel}
-			<div class="flex flex-col gap-4 py-4">
-				<div>
-					<h3 class="font-bold">Description</h3>
-					<p>{modelSheet.selectedModel.description}</p>
+		<div class="flex flex-col gap-8 p-8 py-4">
+			{#if modelSheet.selectedModel}
+				<div class="flex flex-col gap-4">
+					<div class="flex flex-col gap-2">
+						<img
+							src={getUploadFullPath(modelSheet.selectedModel?.pictures[0].path)}
+							class="aspect-square rounded-lg object-cover"
+							alt=""
+						/>
+						<div class="grid grid-cols-2">
+							<div class="flex items-center gap-1">
+								<p class="text-lg">📌</p>
+								<p class="text-xs">
+									{modelSheet.selectedModel.coordinates[0].toFixed(5)}, {modelSheet.selectedModel.coordinates[1].toFixed(
+										5
+									)}
+								</p>
+							</div>
+							<div class="flex items-center gap-1">
+								<p class="text-lg">📆</p>
+								<p class="text-xs">
+									{new Date(modelSheet.selectedModel.addedDate).toLocaleDateString()}
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="font-heading text-xl font-bold">
+						{modelSheet.selectedModel?.name}
+					</div>
+					<div class="flex items-center gap-2">
+						<div class="text-6xl">🌳</div>
+						<p class="text-lg">{modelSheet.selectedModel.description}</p>
+					</div>
+				</div>
+			{/if}
+			<div
+				class="flex flex-col items-center justify-center gap-8 rounded-lg bg-primary p-6 text-primary-foreground"
+			>
+				<div class="text-center font-heading text-xl font-bold">
+					Toi
+					<span class="inline-block -rotate-2 border-4 bg-white shadow-neo">Planter</span>
+					<span class="inline-block rotate-2 border-4 bg-white shadow-neo">Aujourd'hui</span>
 				</div>
 				<div>
-					<h3 class="font-bold">Coordonnées</h3>
-					<p>
-						{modelSheet.selectedModel.coordinates[0].toFixed(5)}, {modelSheet.selectedModel.coordinates[1].toFixed(5)}
-					</p>
-				</div>
-				<div>
-					<h3 class="font-bold">Date d'ajout</h3>
-					<p>{new Date(modelSheet.selectedModel.addedDate).toLocaleString()}</p>
+					<Button variant="outline" href="/planter-aujourdhui">
+						Commencer à planter
+						<MoveRight class="size-10" />
+					</Button>
 				</div>
 			</div>
-		{/if}
+		</div>
 	</SheetContent>
 </Sheet>

@@ -22,15 +22,13 @@
 		onResetClick = () => {},
 		...props
 	}: MapToolBoxProps = $props();
-
-	let test = 0;
 </script>
 
 <div
 	class={cn('flex w-full flex-col gap-4 rounded-lg bg-white p-4 md:max-w-xs', className)}
 	{...props}
 >
-	<h2 class="text-center font-heading font-bold">Boite à outils</h2>
+	<h2 class="text-center font-heading font-bold">Boite à outils 🛠️</h2>
 	<div class="hidden grid-cols-[1fr_2fr] gap-1 md:grid">
 		<div class="col">Coord</div>
 		<div>: {coord[0].toFixed(5)}, {coord[1].toFixed(5)}</div>

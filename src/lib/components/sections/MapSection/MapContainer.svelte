@@ -40,7 +40,7 @@
 		class="pointer-events-none absolute top-0 left-0 h-1/2 w-full p-4 pt-20 *:pointer-events-auto"
 	>
 		<div class="h-full w-full overflow-y-auto rounded-lg bg-white p-4 shadow-lg md:max-w-xs">
-			<h2 class="mb-4 text-center font-heading font-bold">Expériences Partagées</h2>
+			<h2 class="mb-4 text-center font-heading font-bold">Expériences Partagées 🌍</h2>
 			{#if experiences.data.length === 0}
 				<p class="text-center text-gray-500">Aucune expérience partagée pour le moment.</p>
 			{:else}
@@ -49,15 +49,20 @@
 						<li>
 							<button
 								type="button"
-								class="w-full cursor-pointer rounded-md p-2 px-3 text-left hover:bg-gray-50"
+								class="flex w-full cursor-pointer gap-4 rounded-md p-2 px-3 text-left hover:bg-gray-50"
 								onclick={() => flyToExperience(experience)}
 							>
-								<h3 class="font-semibold">
-									{`${experience.firstname} ${experience.lastname}`.substring(0, 20)}...
-								</h3>
-								<p class="text-xs text-gray-400">
-									{new Date(experience.added_date).toLocaleDateString()}
-								</p>
+								<p class="text-2xl">🌳</p>
+								<div class="flex flex-col gap-1">
+									<h3 class="font-semibold">
+										{`${experience.firstname} ${experience.lastname}`.length > 20
+											? `${experience.firstname} ${experience.lastname}`.substring(0, 20) + '...'
+											: `${experience.firstname} ${experience.lastname}`}
+									</h3>
+									<p class="text-xs text-gray-400">
+										{new Date(experience.added_date).toLocaleDateString()}
+									</p>
+								</div>
 							</button>
 						</li>
 					{/each}

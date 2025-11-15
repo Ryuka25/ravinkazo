@@ -2,7 +2,7 @@ import maplibregl from 'maplibre-gl';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three-stdlib';
 import { addExperience } from './experiences.svelte';
-import type { Experience } from '$lib/services/api';
+import type { Experience, Picture } from '$lib/services/api';
 import { SvelteDate } from 'svelte/reactivity';
 import type { ExperienceWithModel } from './experiences.svelte';
 
@@ -34,6 +34,7 @@ export interface ModelDetails {
 	description: string;
 	addedDate: string;
 	coordinates: [number, number];
+	pictures: Picture[];
 }
 
 export const map = $state<MapState>({
@@ -64,7 +65,8 @@ export function openModelSheet(id: string) {
 					name: `${data.firstname} ${data.lastname}`, // Combine firstname and lastname
 					description: data.message, // Map message to description
 					addedDate: data.added_date, // Map added_date to addedDate
-					coordinates: [data.lon, data.lat] // Map lat/lon to coordinates array
+					coordinates: [data.lon, data.lat], // Map lat/lon to coordinates array
+					pictures: data.pictures
 				};
 			} else {
 				console.error(`No experience data found for ID: ${id}`);
