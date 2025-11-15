@@ -9,7 +9,7 @@
 
 <div
 	class={cn(
-		'flex flex-col items-center justify-center gap-4 rounded-lg bg-[#7db9e8] p-8 font-heading text-xl',
+		'flex flex-col items-center justify-center gap-4 rounded-lg bg-[#7db9e8] p-4 text-center font-heading md:p-8 md:text-xl',
 		className
 	)}
 >

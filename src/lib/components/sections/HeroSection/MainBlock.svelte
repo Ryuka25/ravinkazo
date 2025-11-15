@@ -9,9 +9,9 @@
 	let { class: className }: MainBlockProps = $props();
 </script>
 
-<div class={cn('flex flex-col rounded-lg bg-[#f2f2f2] p-16 text-black', className)}>
-	<div class="flex items-center justify-around">
-		<div class="font-heading text-6xl font-bold">
+<div class={cn('flex flex-col gap-4 rounded-lg bg-[#f2f2f2] p-8 text-black md:p-16', className)}>
+	<div class="flex flex-col items-center justify-center md:flex-row md:justify-around">
+		<div class="text-center font-heading text-4xl font-bold md:text-6xl">
 			Planter
 			<span class="inline-block -rotate-2 border-4 bg-[#7db9e8] text-foreground shadow-neo">
 				aujourd'hui
@@ -19,9 +19,9 @@
 		</div>
 		<PlanterImage />
 	</div>
-	<div class="flex items-center justify-around">
+	<div class="flex items-center justify-center md:justify-around">
 		<CultiverImage />
-		<div class="font-heading text-6xl font-bold">
+		<div class="text-center font-heading text-4xl font-bold md:text-6xl">
 			Cultiver
 			<span class="inline-block rotate-2 border-4 bg-[#23d58c] text-foreground shadow-neo">
 				demain

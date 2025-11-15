@@ -7,14 +7,14 @@
 	import * as Sheet from '$lib/components/ui/sheet';
 	import { cn } from '$lib/utils';
 
-	import { Hamburger } from '@lucide/svelte';
+	import { Menu } from '@lucide/svelte';
 
 	let { class: className }: SectionProps = $props();
 </script>
 
 <Section class={cn(className)}>
 	<Container>
-		<div class="item-end flex items-center justify-between py-4">
+		<div class="item-end flex items-center justify-between py-8">
 			<a href="/">
 				<Logo />
 			</a>
@@ -32,7 +32,7 @@
 				<Sheet.Root>
 					<Sheet.Trigger>
 						<Button variant="secondary" size="icon">
-							<Hamburger class="size-6" />
+							<Menu class="size-6" />
 						</Button>
 					</Sheet.Trigger>
 					<Sheet.Content class="p-4">

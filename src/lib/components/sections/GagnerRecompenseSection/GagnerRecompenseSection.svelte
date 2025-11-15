@@ -9,21 +9,21 @@
 
 <Section class="pt-32">
 	<Container>
-		<div class="flex items-center justify-center gap-16 p-16">
-			<div class="relative w-1/2">
+		<div class="flex flex-col items-center justify-center gap-8 md:flex-row md:gap-16 md:p-16">
+			<div class="relative md:w-1/2">
 				<div class="aspect-video rounded-lg bg-[#f2f2f2]">
 					<div class="scale-225">
 						<DotLottieSvelte src="/assets/animations/moneytree.json" loop autoplay />
 					</div>
 				</div>
-				<div class="absolute right-0 bottom-0 translate-x-1/2 translate-y-1/2">
+				<div class="absolute right-0 bottom-0 hidden translate-x-1/2 translate-y-1/2 md:block">
 					<Button variant="secondary" href="/nos-partenaires">
 						Connaitre nos partenaires
 						<MoveRight class="size-6" />
 					</Button>
 				</div>
 			</div>
-			<div class="flex w-1/2 flex-col gap-8">
+			<div class="flex flex-col gap-8 md:w-1/2">
 				<div class="font-heading text-4xl font-bold">Gagnez des Ravinkazo</div>
 				<p class="text-lg text-pretty">
 					Plantez un arbre, récoltez des Ravinkazo (Ra-vin-ka-zu) ! Chaque Ravinkazo vous ouvre les

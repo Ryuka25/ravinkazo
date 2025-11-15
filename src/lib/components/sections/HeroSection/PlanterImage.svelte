@@ -3,7 +3,7 @@
 	import arrow from '$lib/assets/arrow.svg';
 </script>
 
-<div class="relative -mt-20 w-1/4">
+<div class="relative -mt-20 hidden w-1/4 md:block">
 	<img
 		src={planter}
 		alt=""

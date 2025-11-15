@@ -15,11 +15,11 @@
 	<HeroSection />
 	<PlanterAujourdhuiSection />
 	<div class="-mb-32 flex w-full items-center justify-center">
-		<img src={arrowLtr} alt="" class="w-1/2" />
+		<img src={arrowLtr} alt="" class="md:w-1/2" />
 	</div>
 	<CultiverDemainSection />
 	<div class="-mb-32 flex w-full items-center justify-center">
-		<img src={arrowLtr} alt="" class="w-1/2 scale-x-[-1]" />
+		<img src={arrowLtr} alt="" class="scale-x-[-1] md:w-1/2" />
 	</div>
 	<GagnerRecompenseSection />
 	<CtaSection />

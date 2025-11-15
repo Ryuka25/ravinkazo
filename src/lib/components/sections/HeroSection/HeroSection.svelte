@@ -6,9 +6,9 @@
 	import SecondBlock from './SecondBlock.svelte';
 </script>
 
-<Section class="pt-16">
-	<Container class="grid grid-cols-2 gap-4">
-		<MainBlock class="col-span-2" />
+<Section class="md:pt-16">
+	<Container class="grid grid-cols-1 gap-4 md:grid-cols-2">
+		<MainBlock class="md:col-span-2" />
 		<SecondBlock />
 		<CtaBlock />
 	</Container>
