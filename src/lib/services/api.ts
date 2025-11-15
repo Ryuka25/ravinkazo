@@ -25,6 +25,7 @@ export interface ExperienceData {
 	journeyPictures: File[];
 	idPicture?: File;
 	coordinates: { lat: number; lon: number };
+	email?: string;
 }
 
 export const api = {
@@ -45,6 +46,9 @@ export const api = {
 
 		if (data.idPicture) {
 			formData.append('idPicture', data.idPicture);
+		}
+		if (data.email) {
+			formData.append('email', data.email);
 		}
 
 		try {

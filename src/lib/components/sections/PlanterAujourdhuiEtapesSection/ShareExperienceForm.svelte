@@ -30,6 +30,7 @@
 		coordinates = null;
 		wantsToReceiveMoney = false;
 		idPicture = [];
+		email = '';
 		isSubmitting = false;
 	};
 
@@ -41,7 +42,8 @@
 			message: message,
 			journeyPictures: journeyPictures,
 			idPicture: idPicture.length > 0 ? idPicture[0] : undefined,
-			coordinates: coordinates! // The submit button is disabled if coordinates is null
+			coordinates: coordinates!, // The submit button is disabled if coordinates is null
+			email: email // Added email to experienceData
 		};
 
 		// Show a loading toast
@@ -92,6 +94,7 @@
 	// Step 4 data
 	let wantsToReceiveMoney = $state(false);
 	let idPicture = $state<File[]>([]);
+	let email = $state('');
 
 	let showConfirmationDialog = $state(false);
 	let isSubmittingWithCompensation = $state(false); // To store the choice before dialog confirmation
@@ -229,13 +232,20 @@
 				{/if}
 			</div>
 			<div class="flex justify-between">
-				<Button onclick={prevStep}>Précédent</Button>
+				<Button variant="outline" onclick={prevStep}>Précédent</Button>
 				<Button onclick={nextStep} disabled={!coordinates}>Suivant</Button>
 			</div>
 		{/if}
 
-		<!-- Step 4: ID Picture -->
+		<!-- Step 4: ID Picture and Email -->
 		{#if currentStep === 4}
+			<div class="flex flex-col gap-4">
+				<Label for="email">Votre adresse e-mail</Label>
+				<p class="text-sm text-gray-600">
+					Pour recevoir votre compensation, veuillez fournir une adresse e-mail valide.
+				</p>
+				<Input type="email" placeholder="email@example.com" id="email" bind:value={email} />
+			</div>
 			<div class="flex flex-col gap-4">
 				<Label for="id-picture">Photo de votre CIN ou carte d'identité</Label>
 				<p class="text-sm text-gray-600">
@@ -249,7 +259,10 @@
 			</div>
 			<div class="flex justify-between">
 				<Button variant="outline" onclick={prevStep}>Précédent</Button>
-				<Button onclick={handleSubmission} disabled={isSubmitting}>
+				<Button
+					onclick={handleSubmission}
+					disabled={isSubmitting || (idPicture.length > 0 && !email)}
+				>
 					{#if isSubmitting}
 						<LoaderCircle class="mr-2 animate-spin" />
 						Envoi en cours...
