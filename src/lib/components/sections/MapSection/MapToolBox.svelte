@@ -5,6 +5,7 @@
 		pitch?: number;
 		bearing?: number;
 		onResetClick?: () => void;
+		onShowAllClick?: () => void;
 	};
 </script>
 
@@ -20,6 +21,7 @@
 		pitch = 0,
 		bearing = 0,
 		onResetClick = () => {},
+		onShowAllClick = () => {},
 		...props
 	}: MapToolBoxProps = $props();
 </script>
@@ -40,6 +42,9 @@
 		<div>: {bearing.toFixed(2)}</div>
 	</div>
 	<div class="grid gap-2">
+		<Button class="w-full md:hidden md:w-auto" onclick={onShowAllClick}>
+			Afficher la liste des expériences
+		</Button>
 		<Button class="w-full md:w-auto" onclick={onResetClick}>Rétourner au point de départ</Button>
 	</div>
 </div>

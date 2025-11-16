@@ -22,7 +22,7 @@
 </script>
 
 <div class="relative h-screen">
-	<MapContainer class="pt-12" />
+	<MapContainer class="pt-16 md:pt-12" />
 	<div class="absolute top-0 right-0 left-0">
 		<HeaderSection class="bg-background" />
 	</div>
@@ -41,7 +41,9 @@
 		</div>
 		<DialogFooter>
 			<DialogClose>
-				<Button type="button" onclick={() => (showWelcomeDialog = false)}>Compris !</Button>
+				<Button class="w-full md:w-auto" type="button" onclick={() => (showWelcomeDialog = false)}>
+					C'est compris !
+				</Button>
 			</DialogClose>
 		</DialogFooter>
 	</DialogContent>

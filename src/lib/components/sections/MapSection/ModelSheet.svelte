@@ -17,10 +17,10 @@
 	<SheetContent class="max-w-2xl overflow-y-scroll">
 		<SheetHeader>
 			<SheetTitle class="sr-only">
-				{modelSheet.selectedModel?.name ?? 'Détails du modèle'}
+				{modelSheet.selectedModel?.name}
 			</SheetTitle>
 		</SheetHeader>
-		<div class="flex flex-col gap-8 p-8 py-4">
+		<div class="flex flex-col gap-8 p-4 md:p-8">
 			{#if modelSheet.selectedModel}
 				<div class="flex flex-col gap-4">
 					<div class="flex flex-col gap-2">
@@ -29,7 +29,7 @@
 							class="aspect-square rounded-lg object-cover"
 							alt=""
 						/>
-						<div class="grid grid-cols-2">
+						<div class="grid md:grid-cols-2">
 							<div class="flex items-center gap-1">
 								<p class="text-lg">📌</p>
 								<p class="text-xs">
@@ -49,9 +49,9 @@
 					<div class="font-heading text-xl font-bold">
 						{modelSheet.selectedModel?.name}
 					</div>
-					<div class="flex items-center gap-2">
-						<div class="text-6xl">🌳</div>
-						<p class="text-lg">{modelSheet.selectedModel.description}</p>
+					<div class="flex flex-col items-center gap-2 md:flex-row">
+						<div class="self-start text-3xl md:text-6xl">🌳</div>
+						<p class="md:text-lg">{modelSheet.selectedModel.description}</p>
 					</div>
 				</div>
 			{/if}
@@ -65,7 +65,7 @@
 				<div>
 					<Button variant="outline" href="/planter-aujourdhui">
 						Commencer à planter
-						<MoveRight class="size-10" />
+						<MoveRight class="md:size-10" />
 					</Button>
 				</div>
 			</div>

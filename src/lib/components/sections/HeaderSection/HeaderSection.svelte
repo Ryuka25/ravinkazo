@@ -14,7 +14,7 @@
 
 <Section class={cn(className)}>
 	<Container>
-		<div class="item-end flex items-center justify-between py-8">
+		<div class="item-end flex items-center justify-between p-4 md:py-8">
 			<a href="/">
 				<Logo />
 			</a>

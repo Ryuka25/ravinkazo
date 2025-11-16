@@ -6,10 +6,12 @@
 	import ModelSheet from './ModelSheet.svelte';
 	import MapWebsocket from './MapWebsocket.svelte';
 
-	import { map, resetMapToDefaultPosition, flyToExperience } from '$lib/stores/map.svelte';
+	import { map, resetMapToDefaultPosition } from '$lib/stores/map.svelte';
+	import { Sheet, SheetContent, SheetHeader, SheetTitle } from '$lib/components/ui/sheet';
 	import { addExperienceModelToMap } from '$lib/stores/map.svelte';
 	import { onMount } from 'svelte'; // Keep onMount
 	import { experiences, fetchExperiences } from '$lib/stores/experiences.svelte';
+	import ExperiencesList from './ExperiencesList.svelte';
 
 	type MapContainerProps = HTMLAttributes<HTMLDivElement>;
 
@@ -21,6 +23,16 @@
 			addExperienceModelToMap(experience);
 		});
 	});
+
+	let isExperiencesSheetOpen = $state(false);
+
+	const openExperiencesSheet = () => {
+		isExperiencesSheetOpen = true;
+	};
+
+	const closeExperiencesSheet = () => {
+		isExperiencesSheetOpen = false;
+	};
 </script>
 
 <div class={cn('relative h-full', className)} {...props}>
@@ -32,6 +44,7 @@
 			pitch={map.pitch}
 			bearing={map.bearing}
 			onResetClick={resetMapToDefaultPosition}
+			onShowAllClick={openExperiencesSheet}
 		/>
 	</div>
 
@@ -39,38 +52,26 @@
 	<div
 		class="pointer-events-none absolute top-0 left-0 h-1/2 w-full p-4 pt-20 *:pointer-events-auto"
 	>
-		<div class="h-full w-full overflow-y-auto rounded-lg bg-white p-4 shadow-lg md:max-w-xs">
-			<h2 class="mb-4 text-center font-heading font-bold">Expériences Partagées 🌍</h2>
-			{#if experiences.data.length === 0}
-				<p class="text-center text-gray-500">Aucune expérience partagée pour le moment.</p>
-			{:else}
-				<ul class="">
-					{#each experiences.data as experience (experience.id)}
-						<li>
-							<button
-								type="button"
-								class="flex w-full cursor-pointer gap-4 rounded-md p-2 px-3 text-left hover:bg-gray-50"
-								onclick={() => flyToExperience(experience)}
-							>
-								<p class="text-2xl">🌳</p>
-								<div class="flex flex-col gap-1">
-									<h3 class="font-semibold">
-										{`${experience.firstname} ${experience.lastname}`.length > 20
-											? `${experience.firstname} ${experience.lastname}`.substring(0, 20) + '...'
-											: `${experience.firstname} ${experience.lastname}`}
-									</h3>
-									<p class="text-xs text-gray-400">
-										{new Date(experience.added_date).toLocaleDateString()}
-									</p>
-								</div>
-							</button>
-						</li>
-					{/each}
-				</ul>
-			{/if}
+		<div class="hidden h-full w-full overflow-y-auto rounded-lg bg-white p-4 shadow-lg md:max-w-xs">
+			<ExperiencesList />
 		</div>
 	</div>
 </div>
 
 <ModelSheet />
 <MapWebsocket />
+<Sheet
+	open={isExperiencesSheetOpen}
+	onOpenChange={(v) => {
+		if (!v) {
+			closeExperiencesSheet();
+		}
+	}}
+>
+	<SheetContent side="top" class="w-full max-w-2xl overflow-y-scroll">
+		<SheetHeader>
+			<SheetTitle class="sr-only">Experiences Partagé</SheetTitle>
+		</SheetHeader>
+		<ExperiencesList onExperienceClickCallback={closeExperiencesSheet} />
+	</SheetContent>
+</Sheet>
