@@ -8,6 +8,7 @@
 
 	import arrowLtr from '$lib/assets/arrow-ltr.svg';
 	import GagnerRecompenseSection from '$lib/components/sections/GagnerRecompenseSection/GagnerRecompenseSection.svelte';
+	import SEO from '$lib/components/shared/SEO.svelte';
 </script>
 
 <div>
@@ -25,3 +26,5 @@
 	<CtaSection />
 	<FooterSection />
 </div>
+
+<SEO title="Planter aujourd'hui, Cultiver demain 🍃" />

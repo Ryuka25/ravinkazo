@@ -4,6 +4,7 @@
 	import NosPartenairesHeroSection from '$lib/components/sections/NosPartenairesHeroSection/NosPartenairesHeroSection.svelte';
 	import CtaPartenaire from '$lib/components/sections/NosPartenairesSection/CtaPartenaire.svelte';
 	import NosPartenaires from '$lib/components/sections/NosPartenairesSection/NosPartenairesSection.svelte';
+	import SEO from '$lib/components/shared/SEO.svelte';
 </script>
 
 <div>
@@ -13,3 +14,5 @@
 	<CtaPartenaire />
 	<FooterSection />
 </div>
+
+<SEO title="Nos partenaires 👋" />

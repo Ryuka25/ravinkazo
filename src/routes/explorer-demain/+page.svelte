@@ -12,6 +12,7 @@
 	} from '$lib/components/ui/dialog';
 	import { Button } from '$lib/components/ui/button';
 	import { onMount } from 'svelte';
+	import SEO from '$lib/components/shared/SEO.svelte';
 
 	let showWelcomeDialog = $state(false);
 
@@ -45,3 +46,5 @@
 		</DialogFooter>
 	</DialogContent>
 </Dialog>
+
+<SEO title="Explorer demain 🌍" />
