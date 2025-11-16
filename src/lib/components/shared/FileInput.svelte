@@ -59,7 +59,7 @@
 		role="button"
 		tabindex="0"
 		class={cn(
-			'flex h-32 w-full cursor-pointer items-center justify-center rounded-none border-2 border-black bg-gray-50 text-center shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:bg-gray-100',
+			'flex h-32 w-full cursor-pointer items-center justify-center rounded-none border-2 border-black bg-gray-50 text-center shadow-neo hover:bg-gray-100',
 			{ 'border-primary': isDragging },
 			className
 		)}
@@ -72,7 +72,10 @@
 		}}
 		ondragleave={() => (isDragging = false)}
 		ondrop={onDrop}
-	>		<p class="text-gray-500">Glissez-déposez des fichiers ici ou cliquez pour sélectionner</p>
+	>
+		<p class="text-sm text-gray-500 sm:text-base">
+			Glissez-déposez des fichiers ici ou cliquez pour sélectionner
+		</p>
 		<input
 			{id}
 			type="file"
@@ -95,7 +98,7 @@
 					/>
 					<button
 						onclick={() => removeFile(index)}
-						class="absolute -right-2 -top-2 flex h-6 w-6 items-center justify-center rounded-full bg-red-500 p-1 text-white"
+						class="absolute -top-2 -right-2 flex h-6 w-6 items-center justify-center rounded-full bg-red-500 p-1 text-white"
 						title="Remove file"
 					>
 						<X size={16} />

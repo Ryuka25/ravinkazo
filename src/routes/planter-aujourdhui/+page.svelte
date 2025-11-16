@@ -10,7 +10,7 @@
 	<HeaderSection />
 	<PlanterAujourdhuiHeroSection />
 	<PlanterAujourdhuiEtapesSection />
-	<div class="my-24"></div>
+	<div class="md:my-24"></div>
 	<FooterSection />
 </div>
 

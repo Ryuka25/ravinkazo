@@ -44,17 +44,17 @@
 	};
 </script>
 
-<Section class="pt-28">
+<Section class="pt-16 md:pt-28">
 	<Container class="flex flex-col gap-16">
-		<div class="text-center font-heading text-4xl font-bold">
+		<div class="text-center font-heading text-2xl font-bold md:text-4xl">
 			{#if showForm}
 				Partager votre éxpérience avec le monde
 			{:else}
 				Étape {steps.currentIndex + 1} : <span>{currentStep().name}</span>
 			{/if}
 		</div>
-		<div class="flex gap-6">
-			<div class="flex w-2/3 flex-col gap-6">
+		<div class="flex flex-col gap-6 md:flex-row">
+			<div class="flex w-full flex-col gap-6 md:w-2/3">
 				<div class="relative">
 					<div class="pointer-events-none relative aspect-video rounded-lg bg-[#f2f2f2]">
 						{#if steps.currentIndex == 0 && steps.substepCurrentIndex == 0}
@@ -113,53 +113,53 @@
 					<img
 						src={Tree}
 						alt=""
-						class="absolute top-0 bottom-0 size-64 -translate-x-1/2 -translate-y-1/2 -rotate-12"
+						class="absolute top-0 bottom-0 size-32 -translate-x-1/2 -translate-y-1/2 -rotate-12 md:size-64"
 					/>
 					<img
 						src={Tree}
 						alt=""
-						class="absolute -right-20 bottom-0 z-1 size-64 translate-y-1/2 rotate-12"
+						class="absolute -right-20 bottom-0 z-1 size-32 translate-y-1/2 rotate-12 md:size-64"
 					/>
 				</div>
-				<div class="flex gap-6">
+				<div class="flex gap-2 md:gap-6">
 					<button
-						class="border-4 bg-white p-8 font-heading text-3xl font-bold text-black shadow-neo transition-all duration-100 hover:translate-x-1 hover:translate-y-1 hover:bg-white/80 hover:shadow-none"
+						class="flex aspect-square items-center justify-center border-4 bg-white font-heading font-bold text-black shadow-neo transition-all duration-100 hover:translate-x-1 hover:translate-y-1 hover:bg-white/80 hover:shadow-none md:p-8"
 						onclick={onPreviousStep}
 					>
-						<MoveLeft class="size-10" />
+						<MoveLeft class="size-6 md:size-10" />
 					</button>
 					{#if showForm}
 						<a
-							class="border-4 bg-primary p-8 font-heading text-3xl font-bold text-primary-foreground shadow-neo transition-all duration-100 hover:translate-x-1 hover:translate-y-1 hover:bg-primary/80 hover:shadow-none"
+							class="border-4 bg-primary p-2 font-heading font-bold text-primary-foreground shadow-neo transition-all duration-100 hover:translate-x-1 hover:translate-y-1 hover:bg-primary/80 hover:shadow-none md:p-8 md:text-3xl"
 							href="#share-experience"
 						>
 							Partager mon expérience
 						</a>
 					{:else}
 						<button
-							class="flex gap-8 border-4 bg-primary p-8 font-heading text-3xl font-bold text-primary-foreground shadow-neo transition-all duration-100 hover:translate-x-1 hover:translate-y-1 hover:bg-primary/80 hover:shadow-none"
+							class="border-4 bg-primary p-2 font-heading font-bold text-primary-foreground shadow-neo transition-all duration-100 hover:translate-x-1 hover:translate-y-1 hover:bg-primary/80 hover:shadow-none md:p-8 md:text-3xl"
 							onclick={onNextStep}
 						>
 							Aller à l'étape suivante
-							<MoveRight class="size-10" />
+							<MoveRight class="hidden md:block md:size-10" />
 						</button>
 					{/if}
 				</div>
 			</div>
-			<div class="flex w-1/3 flex-col gap-6 rounded-lg bg-[#f2f2f2] p-6">
+			<div class="flex w-full flex-col gap-6 rounded-lg bg-[#f2f2f2] p-6 md:w-1/3">
 				<div class="flex items-center justify-between gap-4">
 					{#each currentStep().subSteps as _, idx}
 						{#if idx != 0}
 							<div
 								class={cn(
-									'h-6 w-16 rounded-lg bg-white',
+									'h-3 w-8 rounded-lg bg-white md:h-6 md:w-16',
 									steps.substepCurrentIndex >= idx && 'bg-[#23d58c]'
 								)}
 							></div>
 						{/if}
 						<div
 							class={cn(
-								'flex size-16 items-center justify-center rounded-lg bg-white font-heading text-4xl font-bold',
+								'flex size-8 items-center justify-center rounded-lg bg-white font-heading text-xl font-bold md:size-16 md:text-4xl',
 								steps.substepCurrentIndex >= idx && 'bg-[#23d58c]'
 							)}
 						>
@@ -167,7 +167,9 @@
 						</div>
 					{/each}
 				</div>
-				<div class="font-heading text-2xl font-bold">{currentSubStep().name}</div>
+				<div class="text-center font-heading text-xl font-bold md:text-2xl">
+					{currentSubStep().name}
+				</div>
 				<Accordion.Root type="single">
 					{#each currentSubStep().faqs as faq, idx}
 						<Accordion.Item value={`faq-${idx}`}>

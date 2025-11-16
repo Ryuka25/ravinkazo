@@ -163,14 +163,18 @@
 			getGpsLocation();
 		}
 	});
+
+	const PASS_ANYWAY = false;
 </script>
 
-<div class={cn('flex gap-6 pt-16', className)} {...props}>
-	<div class="flex w-1/2 flex-col gap-6 rounded-lg bg-[#f2f2f2] p-16">
-		<div class="pb-8 text-center font-heading text-3xl font-bold">Partager mon experience</div>
+<div class={cn('flex flex-col gap-6 md:flex-row md:pt-16', className)} {...props}>
+	<div class="flex flex-col gap-6 rounded-lg bg-[#f2f2f2] p-4 md:w-1/2 md:p-16">
+		<div class="pb-4 text-center font-heading text-lg font-bold md:pb-8 md:text-3xl">
+			Partager mon experience
+		</div>
 		<!-- Step 1: Names and Message -->
 		{#if currentStep === 1}
-			<div class="grid grid-cols-2 gap-4">
+			<div class="grid gap-4 md:grid-cols-2">
 				<div class="flex flex-col gap-4">
 					<Label for="firstname">Votre nom</Label>
 					<Input type="text" placeholder="Rakoto" id="firstname" bind:value={firstname} />
@@ -184,7 +188,9 @@
 				<Label for="message">Votre message</Label>
 				<Textarea id="message" bind:value={message} />
 			</div>
-			<Button onclick={nextStep} disabled={!firstname || !lastname || !message}>Suivant</Button>
+			<Button onclick={nextStep} disabled={!PASS_ANYWAY && (!firstname || !lastname || !message)}
+				>Suivant</Button
+			>
 		{/if}
 
 		<!-- Step 2: Journey Pictures -->
@@ -197,9 +203,11 @@
 				</p>
 				<FileInput bind:files={journeyPictures} multiple id="day-pictures" />
 			</div>
-			<div class="flex justify-between">
+			<div class="flex flex-col-reverse justify-between gap-4 md:flex-row">
 				<Button variant="outline" onclick={prevStep}>Précédent</Button>
-				<Button onclick={nextStep} disabled={journeyPictures.length === 0}>Suivant</Button>
+				<Button onclick={nextStep} disabled={!PASS_ANYWAY && journeyPictures.length === 0}
+					>Suivant</Button
+				>
 			</div>
 		{/if}
 
@@ -231,9 +239,9 @@
 					</div>
 				{/if}
 			</div>
-			<div class="flex justify-between">
+			<div class="flex flex-col-reverse justify-between gap-4 md:flex-row">
 				<Button variant="outline" onclick={prevStep}>Précédent</Button>
-				<Button onclick={nextStep} disabled={!coordinates}>Suivant</Button>
+				<Button onclick={nextStep} disabled={!PASS_ANYWAY && !coordinates}>Suivant</Button>
 			</div>
 		{/if}
 
@@ -242,22 +250,22 @@
 			<div class="flex flex-col gap-4">
 				<Label for="email">Votre adresse e-mail</Label>
 				<p class="text-sm text-gray-600">
-					Pour recevoir votre compensation, veuillez fournir une adresse e-mail valide.
+					Pour recevoir vos Ravinkazo, veuillez fournir une adresse e-mail valide.
 				</p>
 				<Input type="email" placeholder="email@example.com" id="email" bind:value={email} />
 			</div>
 			<div class="flex flex-col gap-4">
 				<Label for="id-picture">Photo de votre CIN ou carte d'identité</Label>
 				<p class="text-sm text-gray-600">
-					Pour recevoir votre compensation, veuillez fournir une pièce d'identité.
+					Pour recevoir vos Ravinkazo, veuillez fournir une pièce d'identité.
 				</p>
 				<FileInput bind:files={idPicture} id="id-picture" />
 				<div class="text-sm">
 					<span class="font-bold">Conseil:</span> Assurez-vous que votre photo est claire et que toutes
-					les informations sont lisibles. Ceci est nécessaire pour valider votre identité pour la compensation.
+					les informations sont lisibles. Ceci est nécessaire pour valider votre identité pour les Ravinkazo.
 				</div>
 			</div>
-			<div class="flex justify-between">
+			<div class="flex flex-col-reverse justify-between gap-4 md:flex-row">
 				<Button variant="outline" onclick={prevStep}>Précédent</Button>
 				<Button
 					onclick={handleSubmission}
@@ -267,14 +275,16 @@
 						<LoaderCircle class="mr-2 animate-spin" />
 						Envoi en cours...
 					{:else}
-						{idPicture.length > 0 ? 'Soumettre avec compensation' : 'Soumettre sans compensation'}
+						{idPicture.length > 0 ? 'Récevoir mes Ravinkazo' : 'Soumettre sans mes Ravinkazo'}
 					{/if}
 				</Button>
 			</div>
 		{/if}
 	</div>
-	<div class="flex w-1/2 flex-col items-center justify-center gap-16 rounded-lg bg-primary p-16">
-		<div class="font-heading text-3xl font-bold">
+	<div
+		class="flex flex-col items-center justify-center gap-8 rounded-lg bg-primary p-4 md:w-1/2 md:gap-16 md:p-16"
+	>
+		<div class="text-center font-heading text-2xl font-bold md:text-3xl">
 			Laisse
 			<span class="inline-block -rotate-2 border-4 bg-white shadow-neo">pousser</span>
 			le
