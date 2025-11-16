@@ -18,6 +18,8 @@
 
 	onMount(() => {
 		showWelcomeDialog = true;
+
+		window.scrollTo(0, document.body.scrollHeight);
 	});
 </script>
 
