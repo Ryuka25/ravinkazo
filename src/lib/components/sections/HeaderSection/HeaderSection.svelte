@@ -18,7 +18,7 @@
 			<a href="/">
 				<Logo />
 			</a>
-			<div class="hidden gap-4 md:flex">
+			<div class="hidden gap-4 lg:flex">
 				<Button variant="secondary" class="capitalize" href="/">accueil</Button>
 				<Button variant="secondary" class="capitalize" href="/nos-partenaires">
 					nos partenaires
@@ -28,7 +28,7 @@
 				</Button>
 				<Button class="capitalize" href="/planter-aujourdhui">planter aujourd'hui</Button>
 			</div>
-			<div class="block md:hidden">
+			<div class="block lg:hidden">
 				<Sheet.Root>
 					<Sheet.Trigger>
 						<Button variant="secondary" size="icon">

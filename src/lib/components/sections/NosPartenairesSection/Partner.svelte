@@ -9,6 +9,6 @@
 	let { class: className, logo, ...props }: Props = $props();
 </script>
 
-<div class={cn('flex items-center gap-8 rounded-lg', className)} {...props}>
+<div class={cn('flex  items-center gap-8 rounded-lg ', className)} {...props}>
 	<img src={logo} alt="" class="ml-auto aspect-square rounded-lg shadow" />
 </div>

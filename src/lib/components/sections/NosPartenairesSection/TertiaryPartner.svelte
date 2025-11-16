@@ -7,7 +7,13 @@
 	let { class: className, ...props }: Props = $props();
 </script>
 
-<div class={cn('flex items-center gap-8 rounded-lg bg-[#f2f2f2] p-8', className)} {...props}>
-	<div class="w-1/2 font-heading text-3xl text-black">Passion 4 Humanity</div>
+<div
+	class={cn(
+		'flex flex-row items-center gap-4 rounded-lg bg-[#f2f2f2] p-4 md:gap-8 md:p-8',
+		className
+	)}
+	{...props}
+>
+	<div class="w-1/2 font-heading text-xl text-black md:text-3xl">Passion 4 Humanity</div>
 	<img src="/assets/logos/p4h.jpg" alt="" class="ml-auto aspect-square w-1/2 rounded-lg" />
 </div>

@@ -1,8 +1,10 @@
 <script lang="ts">
 	import type { HTMLAttributes } from 'svelte/elements';
-	import CultiverImage from './CultiverImage.svelte';
-	import PlanterImage from './PlanterImage.svelte';
+	import cultiver from '$lib/assets/cultiver.svg';
+
 	import { cn } from '$lib/utils';
+	import planter from '$lib/assets/planter.svg';
+	import arrow from '$lib/assets/arrow.svg';
 
 	type MainBlockProps = HTMLAttributes<HTMLDivElement>;
 
@@ -17,10 +19,21 @@
 				aujourd'hui
 			</span>
 		</div>
-		<PlanterImage />
+		<div class="relative -mt-20 hidden w-1/4 lg:block">
+			<img
+				src={planter}
+				alt=""
+				class="-rotate-2 motion-rotate-loop-4 motion-ease-linear motion-duration-4000"
+			/>
+			<img src={arrow} alt="" class="absolute top-0 -left-1/2 w-1/2" />
+		</div>
 	</div>
 	<div class="flex items-center justify-center md:justify-around">
-		<CultiverImage />
+		<img
+			src={cultiver}
+			alt=""
+			class="-mt-20 hidden w-1/3 rotate-2 -motion-rotate-loop-4 motion-ease-linear motion-duration-4000 lg:block"
+		/>
 		<div class="text-center font-heading text-4xl font-bold md:text-6xl">
 			Cultiver
 			<span class="inline-block rotate-2 border-4 bg-[#23d58c] text-foreground shadow-neo">

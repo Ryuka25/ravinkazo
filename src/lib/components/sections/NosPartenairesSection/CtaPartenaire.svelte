@@ -5,12 +5,12 @@
 	import { MoveRight } from '@lucide/svelte';
 </script>
 
-<Section class="py-32">
+<Section class="py-16 md:py-32">
 	<Container>
 		<div
-			class="flex flex-col items-center justify-center gap-16 rounded-lg bg-primary p-16 text-primary-foreground"
+			class="flex flex-col items-center justify-center gap-16 rounded-lg bg-primary p-8 text-primary-foreground md:p-16"
 		>
-			<div class="font-heading text-5xl font-bold">
+			<div class="text-center font-heading text-3xl font-bold md:text-5xl">
 				Cultivons l'
 				<span class="inline-block -rotate-2 border-4 bg-white shadow-neo">avenir</span>
 				,
@@ -23,10 +23,10 @@
 			<div>
 				<a
 					href="mailto:contact.dreamit.mg@gmail.com"
-					class="flex items-center justify-center gap-8 border-4 bg-white p-8 font-heading text-3xl font-bold shadow-neo transition-all duration-100 hover:translate-x-1 hover:translate-y-1 hover:bg-white/80 hover:shadow-none"
+					class="flex items-center justify-center gap-8 border-4 bg-white p-4 font-heading text-xl font-bold shadow-neo transition-all duration-100 hover:translate-x-1 hover:translate-y-1 hover:bg-white/80 hover:shadow-none md:p-8 md:text-3xl"
 				>
 					Devenir partenaire du futur
-					<MoveRight class="size-16" />
+					<MoveRight class="size-10 md:size-16" />
 				</a>
 			</div>
 		</div>
