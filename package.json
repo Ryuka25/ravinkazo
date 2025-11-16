@@ -54,6 +54,7 @@
 	},
 	"dependencies": {
 		"@lottiefiles/dotlottie-svelte": "^0.8.7",
+		"@sveltejs/adapter-vercel": "^6.1.1",
 		"@tailwindcss/typography": "^0.5.19",
 		"leaflet": "^1.9.4",
 		"maplibre-gl": "^5.12.0",
