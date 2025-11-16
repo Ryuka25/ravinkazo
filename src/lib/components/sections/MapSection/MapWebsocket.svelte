@@ -2,11 +2,11 @@
 	import { onMount } from 'svelte';
 	import { experiences } from '$lib/stores/experiences.svelte';
 	import { addExperienceModelToMap, flyToExperience } from '$lib/stores/map.svelte';
-	import type { Experience } from '$lib/services/api'; // Assuming ExperienceData is needed for parsing
+	import { WEBSOCKET_BASE_URL, type Experience } from '$lib/services/api'; // Assuming ExperienceData is needed for parsing
 	import type { ExperienceWithModel } from '$lib/stores/experiences.svelte';
 
 	// WebSocket URL - replace with your actual WebSocket endpoint
-	const WEBSOCKET_URL = 'ws://localhost:8000/ws'; // Placeholder
+	const WEBSOCKET_URL = `${WEBSOCKET_BASE_URL}/ws`; // Placeholder
 
 	onMount(() => {
 		const websocket = new WebSocket(WEBSOCKET_URL);
