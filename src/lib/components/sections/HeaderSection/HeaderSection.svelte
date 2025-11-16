@@ -38,7 +38,7 @@
 					<Sheet.Content class="p-4">
 						<Sheet.Header>
 							<Sheet.Title>
-								<div class="font-heading text-3xl font-bold md:text-6xl">Ravinkazo</div>
+								<div class="text-center font-heading text-2xl font-bold">Ravinkazo</div>
 							</Sheet.Title>
 						</Sheet.Header>
 						<div class="grid gap-4">
