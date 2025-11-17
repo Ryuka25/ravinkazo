@@ -52,7 +52,7 @@
 	<div
 		class="pointer-events-none absolute top-0 left-0 hidden h-1/2 w-full p-4 pt-20 *:pointer-events-auto md:block"
 	>
-		<div class="h-full w-full overflow-y-auto rounded-lg bg-white p-4 shadow-lg md:max-w-xs">
+		<div class="mt-10 h-full w-full overflow-y-auto rounded-lg bg-white p-4 shadow-lg md:max-w-xs">
 			<ExperiencesList />
 		</div>
 	</div>
